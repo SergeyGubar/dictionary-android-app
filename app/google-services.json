@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "250817975687",
+    "firebase_url": "https://dictionary-android-app-master.firebaseio.com",
+    "project_id": "dictionary-android-app-master",
+    "storage_bucket": "dictionary-android-app-master.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250817975687:android:f99b701815059a51",
+        "android_client_info": {
+          "package_name": "com.example.android.miwok"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "250817975687-o3ic2uuock7r19q4q15b8atltet6g1dn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.miwok",
+            "certificate_hash": "72ae53ddab7ab62e688d1e62a4c3eb4a1e359f85"
+          }
+        },
+        {
+          "client_id": "250817975687-sk9hsta0o17lp6umn30ldsdb0ttqaqq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBofK8fi3dpMJzc8dR9TrgjrErlWBHaS-4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "250817975687-sk9hsta0o17lp6umn30ldsdb0ttqaqq6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
