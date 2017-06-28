@@ -60,7 +60,6 @@ public class NumbersActivity extends AppCompatActivity {
 
         //region Collecion Initialize
 
-
         Gson gson = new Gson();
         Context context = this;
         SharedPreferences sharedPreferences = context.getSharedPreferences("com.example.android.miwok.DATA",
@@ -93,7 +92,6 @@ public class NumbersActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
     }
-
 
 }
 
