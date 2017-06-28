@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        Log.e("NumbersActivity", "FUCK");
+        Log.v("NumbersActivity", "FUCK");
 
         try {
             findViewById(R.id.numbers).setOnClickListener(new OnClickListener() {
