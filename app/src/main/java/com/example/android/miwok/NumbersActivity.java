@@ -15,36 +15,25 @@
  */
 package com.example.android.miwok;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 public class NumbersActivity extends AppCompatActivity {
     private FloatingActionButton floatButton;
+    private DatabaseReference mdDataBase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,39 +47,53 @@ public class NumbersActivity extends AppCompatActivity {
             }
         });
 
-        //region Collecion Initialize
-
-        Gson gson = new Gson();
-        Context context = this;
-        SharedPreferences sharedPreferences = context.getSharedPreferences("com.example.android.miwok.DATA",
-                Context.MODE_PRIVATE);
 
 
-        if (sharedPreferences.getString("words list", "").isEmpty()) {
-            ArrayList<Word> listOfWords = new ArrayList<>();
-            listOfWords.add(new Word("Один", "One", R.drawable.number_one));
-            listOfWords.add(new Word("Два", "Two", R.drawable.number_two));
-            listOfWords.add(new Word("Три", "Three", R.drawable.number_three));
-            listOfWords.add(new Word("Четыре", "Four", R.drawable.number_four));
-            listOfWords.add(new Word("Пять", "Five", R.drawable.number_five));
-            listOfWords.add(new Word("Шесть", "Six", R.drawable.number_six));
-            listOfWords.add(new Word("Семь", "Seven", R.drawable.number_seven));
-            listOfWords.add(new Word("Восемь", "Eight", R.drawable.number_eight));
-            listOfWords.add(new Word("Девять", "Nine", R.drawable.number_nine));
-            listOfWords.add(new Word("Десять", "Ten", R.drawable.number_ten));
-            CollectionInitializer.initializeCollection(context, sharedPreferences, gson, listOfWords,
-                    "words list");
-        }
 
-        String s = sharedPreferences.getString("words list", "");
+        final ArrayList<Word> listOfWords = new ArrayList<>();
+        mdDataBase = FirebaseDatabase.getInstance().getReference().child("Words");
+        mdDataBase.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                /*HashMap<String, String> wordHash = (HashMap<String,String>)dataSnapshot.getValue();
+                listOfWords.add(new Word(wordHash.get("engWord"), wordHash.get("rusWord")));
 
-        Type collectionType = new TypeToken<Collection<Word>>() {}.getType();
-        Collection<Word> parsedgson = gson.fromJson(s, collectionType);
+                initializeListView(listOfWords);*/
+                Word test = dataSnapshot.getValue(Word.class);
+                listOfWords.add(test);
+                initializeListView(listOfWords);
+            }
 
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+    }
+
+    private void initializeListView(ArrayList<Word> listOfWords)  {
         ListView listView = (ListView) findViewById(R.id.list);
-        WordAdapter adapter = new WordAdapter(this, (ArrayList<Word>) parsedgson);
+        WordAdapter adapter = new WordAdapter(this, listOfWords);
         listView.setAdapter(adapter);
-
     }
 
 }
