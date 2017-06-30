@@ -19,12 +19,10 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,24 +31,21 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.StringTokenizer;
 
-import static android.R.attr.tag;
-
-public class NumbersActivity extends AppCompatActivity {
+public class StuffActivity extends AppCompatActivity {
     private FloatingActionButton floatButton;
-    private final String TAG = "NumbersActivity";
-
+    private final String TAG = "StuffActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitvity_words);
+
         floatButton = (FloatingActionButton) findViewById(R.id.float_btn);
         final ListView listView = (ListView) findViewById(R.id.list);
         floatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NumbersActivity.this, AddActivity.class);
+                Intent intent = new Intent(StuffActivity.this, AddActivity.class);
                 startActivity(intent);
             }
         });
@@ -58,7 +53,7 @@ public class NumbersActivity extends AppCompatActivity {
         final ArrayList<Word> listOfWords = new ArrayList<>();
 
 
-        final DatabaseReference mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").child("Numbers");
+        final DatabaseReference mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").child("Stuff");
         mDataBase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -67,7 +62,7 @@ public class NumbersActivity extends AppCompatActivity {
                     Word test = new Word(wordHashMap.get("engWord"), wordHashMap.get("rusWord"));
                     listOfWords.add(test);
                 }
-                WordAdapter adapter = new WordAdapter(NumbersActivity.this, listOfWords);
+                WordAdapter adapter = new WordAdapter(StuffActivity.this, listOfWords);
                 listView.setAdapter(adapter);
             }
 
@@ -76,12 +71,6 @@ public class NumbersActivity extends AppCompatActivity {
 
             }
         });
+
     }
-
-
 }
-
-
-
-
-

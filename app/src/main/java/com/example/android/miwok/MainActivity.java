@@ -21,17 +21,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import static android.os.Build.VERSION_CODES.M;
+import java.lang.reflect.Member;
 
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.phrases).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent phrases = new Intent(MainActivity.this, PhrasesActivity.class);
+                    Intent phrases = new Intent(MainActivity.this, StuffActivity.class);
                     startActivity(phrases);
                 }
             });

@@ -62,7 +62,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".PhrasesActivity"
+            android:name=".StuffActivity"
             android:label="@string/category_phrases"
             android:parentActivityName=".MainActivity">
 

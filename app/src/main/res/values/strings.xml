@@ -17,8 +17,13 @@
     <string name="app_name">Dictionary</string>
 
     <!-- Category name for phrases [CHAR LIMIT=20] -->
-    <string name="category_phrases">Phrases</string>
-
+    <string name="category_phrases">Not Categorized Words</string>
+    <string-array name="activities_names">
+        <item>Numbers</item>
+        <item>Family</item>
+        <item>Colors</item>
+        <item>Stuff</item>
+    </string-array>
     <!-- Category name for the vocabulary words for colors [CHAR LIMIT=20] -->
     <string name="category_colors">Colors</string>
 

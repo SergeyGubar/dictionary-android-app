@@ -19,7 +19,7 @@ import java.util.List;
  * Created by Sergey on 6/22/2017.
  */
 
-public class WordAdapter extends ArrayAdapter<Word> {
+class WordAdapter extends ArrayAdapter<Word> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
