@@ -22,23 +22,31 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+import static android.R.attr.tag;
 
 public class NumbersActivity extends AppCompatActivity {
     private FloatingActionButton floatButton;
-    private DatabaseReference mdDataBase;
+    private final String TAG = "NumbersActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitvity_words);
         floatButton = (FloatingActionButton) findViewById(R.id.float_btn);
+        final ListView listView = (ListView) findViewById(R.id.list);
         floatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,36 +55,21 @@ public class NumbersActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         final ArrayList<Word> listOfWords = new ArrayList<>();
-        mdDataBase = FirebaseDatabase.getInstance().getReference().child("Words");
-        mdDataBase.addChildEventListener(new ChildEventListener() {
+
+
+        final DatabaseReference mDataBase = FirebaseDatabase.getInstance().getReference().child("Words");
+        mDataBase.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                /*HashMap<String, String> wordHash = (HashMap<String,String>)dataSnapshot.getValue();
-                listOfWords.add(new Word(wordHash.get("engWord"), wordHash.get("rusWord")));
-
-                initializeListView(listOfWords);*/
-                Word test = dataSnapshot.getValue(Word.class);
-                listOfWords.add(test);
-                initializeListView(listOfWords);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    HashMap<String, String> wordHashMap = (HashMap<String, String>) postSnapshot.getValue();
+                    Word test = new Word(wordHashMap.get("engWord"), wordHashMap.get("rusWord"));
+                    listOfWords.add(test);
+                }
+                Log.e(TAG, String.valueOf(listOfWords.size()));
+                WordAdapter adapter = new WordAdapter(NumbersActivity.this, listOfWords);
+                listView.setAdapter(adapter);
             }
 
             @Override
@@ -84,17 +77,8 @@ public class NumbersActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
     }
 
-    private void initializeListView(ArrayList<Word> listOfWords)  {
-        ListView listView = (ListView) findViewById(R.id.list);
-        WordAdapter adapter = new WordAdapter(this, listOfWords);
-        listView.setAdapter(adapter);
-    }
 
 }
 

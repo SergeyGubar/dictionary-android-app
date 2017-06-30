@@ -37,28 +37,10 @@ public class ColorsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitvity_words);
 
-
-
-
-        Gson gson = new Gson();
-        SharedPreferences pref = this.getSharedPreferences("com.example.android.miwok.DATA",
-                Context.MODE_PRIVATE);
-        if (pref.getString("colors list", "").isEmpty()) {
-            ArrayList<Word> wordsList = new ArrayList<>();
-            wordsList.add(new Word("Красный", "Red", R.drawable.color_red));
-            wordsList.add(new Word("Черный", "Black", R.drawable.color_black));
-            wordsList.add(new Word("Желтый", "Yellow", R.drawable.color_dusty_yellow));
-            wordsList.add(new Word("Серый", "Gray", R.drawable.color_gray));
-            CollectionInitializer.initializeCollection(this, pref, gson, wordsList, "colors list");
-        }
-
-        String jsonText = pref.getString("colors list", "");
-        Type collectionType = new TypeToken<Collection<Word>>() {}.getType();
-
-        Collection<Word> parsedJson = gson.fromJson(jsonText, collectionType);
+        ArrayList<Word> listOfWords = new ArrayList<>();
 
         ListView colorListView = (ListView) findViewById(R.id.list);
-        WordAdapter adapter = new WordAdapter(this, (ArrayList<Word>) parsedJson);
+        WordAdapter adapter = new WordAdapter(this, listOfWords);
         colorListView.setAdapter(adapter);
 
 

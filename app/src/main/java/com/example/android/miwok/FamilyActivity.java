@@ -36,27 +36,11 @@ public class FamilyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitvity_words);
 
-        Gson gson = new Gson();
-        SharedPreferences pref = this.getSharedPreferences("com.example.android.miwok.DATA",
-                Context.MODE_PRIVATE);
-        if (pref.getString("family list", "").isEmpty()) {
-            ArrayList<Word> wordsList = new ArrayList<>();
-            wordsList.add(new Word("Отец", "Father", R.drawable.family_father));
-            wordsList.add(new Word("Мать", "Mother", R.drawable.family_mother));
-            wordsList.add(new Word("Бабушка", "Grandmother", R.drawable.family_grandmother));
-            wordsList.add(new Word("Дедушка", "Grandfather", R.drawable.family_grandfather));
-            wordsList.add(new Word("Брат", "Brother", R.drawable.family_older_brother));
-            wordsList.add(new Word("Сестра", "Sister", R.drawable.family_older_sister));
-            CollectionInitializer.initializeCollection(this, pref, gson, wordsList, "family list");
-        }
 
-        String jsonText = pref.getString("family list", "");
-        Type collectionType = new TypeToken<Collection<Word>>() {}.getType();
-
-        Collection<Word> parsedJson = gson.fromJson(jsonText, collectionType);
+        ArrayList<Word> listOfWords = new ArrayList<>();
 
         ListView listView = (ListView) findViewById(R.id.list);
-        WordAdapter adapter = new WordAdapter(this, (ArrayList<Word>) parsedJson);
+        WordAdapter adapter = new WordAdapter(this, listOfWords);
         listView.setAdapter(adapter);
 
     }

@@ -32,12 +32,10 @@ public class WordAdapter extends ArrayAdapter<Word> {
         try {
             TextView rusTextView = (TextView) listItemView.findViewById(R.id.russian_text_view);
             rusTextView.setText(currWord.getRusWord());
-            /*rusTextView.setBackgroundColor(getContext().getResources().getColor(currWord.getColor()));*/
 
 
             TextView engTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
             engTextView.setText(currWord.getEngWord());
-            /*engTextView.setBackgroundColor(getContext().getResources().getColor(currWord.getColor()));*/
 
 
             ImageView pictureView = (ImageView) listItemView.findViewById(R.id.image_placeholder);
