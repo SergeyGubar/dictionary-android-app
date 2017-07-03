@@ -26,7 +26,10 @@
     </string-array>
     <!-- Category name for the vocabulary words for colors [CHAR LIMIT=20] -->
     <string name="category_colors">Colors</string>
-
+    <string name="email_auth">Enter your email</string>
+    <string name="password_auth">Password</string>
+    <string name="login_btn_text">Log in</string>
+    <string name="login_failed">Login Failed</string>
     <!-- Category name for the vocabulary words for numbers [CHAR LIMIT=20] -->
     <string name="category_numbers">Numbers</string>
 

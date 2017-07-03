@@ -36,6 +36,15 @@ class Word {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if(o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Word wordToCompare = (Word)o;
+        return wordToCompare.engWord.equals(this.engWord) && wordToCompare.rusWord.equals(this.rusWord);
+    }
+
+    @Override
     public String toString() {
         return this.engWord + "\n" + this.rusWord;
     }
