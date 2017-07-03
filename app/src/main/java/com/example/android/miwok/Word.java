@@ -4,7 +4,7 @@ package com.example.android.miwok;
  * Created by Sergey on 6/22/2017.
  */
 
-public class Word {
+class Word {
     private String rusWord;
     private String engWord;
     private int imageSource;
@@ -23,26 +23,16 @@ public class Word {
         return imageSource;
     }
 
-    public int getColor() {
-        return color;
-    }
 
     public Word(String rusWord, String engWord) {
         this.rusWord = rusWord;
         this.engWord = engWord;
     }
 
-    public Word(String rusWord, String engWord, int imageSource) {
+    public Word(final String rusWord, final String engWord, final int imageSource) {
         this.rusWord = rusWord;
         this.engWord = engWord;
         this.imageSource = imageSource;
-    }
-
-    public Word(String rusWord, String engWord, int imageSource, int color) {
-        this.rusWord = rusWord;
-        this.engWord = engWord;
-        this.imageSource = imageSource;
-        this.color = color;
     }
 
     @Override

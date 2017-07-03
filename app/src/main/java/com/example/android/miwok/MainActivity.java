@@ -21,49 +21,51 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
 
-import java.lang.reflect.Member;
+import static android.R.attr.tag;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final String KEY = "activity";
+    private final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            findViewById(R.id.numbers).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent numbers = new Intent(getApplicationContext(), NumbersActivity.class);
-                    startActivity(numbers);
-                }
-            });
-            findViewById(R.id.colors).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent colors = new Intent(MainActivity.this, ColorsActivity.class);
-                    startActivity(colors);
-                }
-            });
-            findViewById(R.id.family).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent family = new Intent(MainActivity.this, FamilyActivity.class);
-                    startActivity(family);
-                }
-            });
-            findViewById(R.id.phrases).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent phrases = new Intent(MainActivity.this, StuffActivity.class);
-                    startActivity(phrases);
-                }
-            });
-        } catch (NullPointerException ex) {
-            Toast.makeText(getApplicationContext(), "Ooops, something went wrong", Toast.LENGTH_SHORT).show();
-            Log.e("MainActivity", "Null pointer, gg");
-        }
+
+        findViewById(R.id.numbers).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent numbers = new Intent(MainActivity.this, WordsActivity.class);
+                numbers.putExtra(KEY, "Numbers");
+                startActivity(numbers);
+            }
+        });
+        findViewById(R.id.colors).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent colors = new Intent(MainActivity.this, WordsActivity.class);
+                colors.putExtra(KEY, "Colors");
+                startActivity(colors);
+            }
+        });
+        findViewById(R.id.family).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent family = new Intent(MainActivity.this, WordsActivity.class);
+                family.putExtra(KEY, "Family");
+                startActivity(family);
+            }
+        });
+        findViewById(R.id.phrases).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent phrases = new Intent(MainActivity.this, WordsActivity.class);
+                phrases.putExtra(KEY, "Stuff");
+                startActivity(phrases);
+            }
+        });
 
     }
 }

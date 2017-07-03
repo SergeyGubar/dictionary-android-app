@@ -27,7 +27,6 @@ class WordAdapter extends ArrayAdapter<Word> {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.numbers_layout, parent, false);
         }
-
         Word currWord = getItem(position);
         try {
             TextView rusTextView = (TextView) listItemView.findViewById(R.id.russian_text_view);
@@ -43,7 +42,6 @@ class WordAdapter extends ArrayAdapter<Word> {
         } catch (NullPointerException ex) {
             Log.e("WordAdapter", "KOLENO PROSTRELENO");
         }
-
         return listItemView;
     }
 

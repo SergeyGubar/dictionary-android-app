@@ -34,8 +34,5 @@
             android:paddingBottom="16dp"
             tools:text="One" />
 
-
     </LinearLayout>
-
-
 </LinearLayout>

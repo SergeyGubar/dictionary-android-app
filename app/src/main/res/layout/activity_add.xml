@@ -11,13 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/english_word"
-        android:id="@+id/edit_text_eng"/>
+        android:id="@+id/edit_text_eng"
+        />
 
     <EditText
         android:id="@+id/edit_text_rus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/russian_word" />
+        android:hint="@string/russian_word"
+        />
 
     <Spinner
         android:id="@+id/spinner"
@@ -30,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/add_word" />
+        android:text="@string/add_word"
+        />
 
 </LinearLayout>
