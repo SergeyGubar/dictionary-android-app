@@ -22,7 +22,7 @@
         android:id="@+id/avi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:indicatorName="BallPulseIndicator"
         app:indicatorColor="@color/primary_color"
         android:layout_centerHorizontal="true"

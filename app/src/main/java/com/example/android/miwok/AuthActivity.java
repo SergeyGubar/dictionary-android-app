@@ -22,11 +22,11 @@ public class AuthActivity extends AppCompatActivity {
     private EditText emailText;
     private EditText passwordText;
     private Button loginButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
-
         mAuth = FirebaseAuth.getInstance();
         emailText = (EditText) findViewById(R.id.email_edit_text);
         passwordText = (EditText) findViewById(R.id.password_edit_text);
@@ -36,6 +36,7 @@ public class AuthActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Intent intent = new Intent(AuthActivity.this, MainActivity.class);
+                    intent.putExtra("UID", mAuth.getCurrentUser().getUid());
                     startActivity(intent);
                 } else {
 
@@ -48,11 +49,12 @@ public class AuthActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn(emailText.getText().toString(),passwordText.getText().toString());
+                signIn(emailText.getText().toString(), passwordText.getText().toString());
             }
         });
 
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -71,7 +73,7 @@ public class AuthActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(!task.isSuccessful()) {
+                if (!task.isSuccessful()) {
                     Toast.makeText(AuthActivity.this, "Auth went wrong", Toast.LENGTH_SHORT).show();
                 }
             }

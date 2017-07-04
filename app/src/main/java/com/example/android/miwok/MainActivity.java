@@ -23,31 +23,36 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import static android.R.attr.tag;
+import static com.example.android.miwok.R.id.colors;
+import static com.example.android.miwok.R.id.numbers;
 
 public class MainActivity extends AppCompatActivity {
 
     private final String KEY = "activity";
+    private final String USERID = "UID";
     private final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-
-        findViewById(R.id.numbers).setOnClickListener(new OnClickListener() {
+        findViewById(numbers).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent numbers = new Intent(MainActivity.this, WordsActivity.class);
                 numbers.putExtra(KEY, "Numbers");
+                numbers.putExtra(USERID, getIntent().getStringExtra("UID"));
                 startActivity(numbers);
             }
         });
-        findViewById(R.id.colors).setOnClickListener(new OnClickListener() {
+        findViewById(colors).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent colors = new Intent(MainActivity.this, WordsActivity.class);
                 colors.putExtra(KEY, "Colors");
+                colors.putExtra(USERID, getIntent().getStringExtra("UID"));
                 startActivity(colors);
             }
         });
@@ -56,15 +61,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent family = new Intent(MainActivity.this, WordsActivity.class);
                 family.putExtra(KEY, "Family");
+                family.putExtra(USERID, getIntent().getStringExtra("UID"));
+
                 startActivity(family);
             }
         });
         findViewById(R.id.phrases).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent phrases = new Intent(MainActivity.this, WordsActivity.class);
-                phrases.putExtra(KEY, "Stuff");
-                startActivity(phrases);
+                Intent stuff = new Intent(MainActivity.this, WordsActivity.class);
+                stuff.putExtra(KEY, "Stuff");
+                stuff.putExtra(USERID, getIntent().getStringExtra("UID"));
+                startActivity(stuff);
             }
         });
 

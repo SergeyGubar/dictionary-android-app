@@ -20,28 +20,31 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.example.android.miwok.R.id.avi;
 
 public class WordsActivity extends AppCompatActivity {
-    private FloatingActionButton floatButton;
     private final String TAG = "WordsListActivity";
-
+    private String UID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words);
-        floatButton = (FloatingActionButton) findViewById(R.id.float_btn);
+        UID = getIntent().getStringExtra("UID");
+        Log.v(TAG, UID);
+        final FloatingActionButton floatButton = (FloatingActionButton) findViewById(R.id.float_btn);
         final ListView listView = (ListView) findViewById(R.id.list);
         final ArrayList<Word> listOfWords = new ArrayList<>();
         final DatabaseReference mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").
-                child(getIntent().getStringExtra("activity"));
+                child(UID).child(getIntent().getStringExtra("activity"));
         final AVLoadingIndicatorView avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
+        avi.setVisibility(View.VISIBLE);
         avi.show();
+
         floatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(WordsActivity.this, AddActivity.class);
+                intent.putExtra("UID", UID);
                 startActivity(intent);
             }
         });

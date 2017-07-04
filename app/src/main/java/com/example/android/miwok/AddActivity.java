@@ -50,7 +50,8 @@ public class AddActivity extends AppCompatActivity {
                 HashMap<String, String> wordHash = new HashMap<>();
                 wordHash.put("engWord", word.getEngWord());
                 wordHash.put("rusWord", word.getRusWord());
-                mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").child(spinner.getSelectedItem().toString());
+                mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").child(getIntent().getStringExtra("UID"))
+                        .child(spinner.getSelectedItem().toString());
                 mDataBase.child(word.getEngWord() + " | " + word.getRusWord()).setValue(wordHash).addOnCompleteListener
                         (new OnCompleteListener<Void>() {
                             @Override
