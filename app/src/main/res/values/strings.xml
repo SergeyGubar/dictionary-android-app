@@ -26,9 +26,9 @@
     </string-array>
     <!-- Category name for the vocabulary words for colors [CHAR LIMIT=20] -->
     <string name="category_colors">Colors</string>
-    <string name="email_auth">Enter your email</string>
+    <string name="email_auth">Email</string>
     <string name="password_auth">Password</string>
-    <string name="login_btn_text">Log in</string>
+    <string name="login_btn_text">Login</string>
     <string name="login_failed">Login Failed</string>
     <!-- Category name for the vocabulary words for numbers [CHAR LIMIT=20] -->
     <string name="category_numbers">Numbers</string>
@@ -38,4 +38,18 @@
     <string name="russian_word">Russian word</string>
     <string name="english_word">English word</string>
     <string name="add_word">add word</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 </resources>

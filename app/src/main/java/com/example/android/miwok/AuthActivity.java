@@ -1,5 +1,6 @@
 package com.example.android.miwok;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,40 +17,27 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class AuthActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
     private EditText emailText;
     private EditText passwordText;
     private Button loginButton;
+    private AuthActivityPresenter presenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
-        mAuth = FirebaseAuth.getInstance();
         emailText = (EditText) findViewById(R.id.email_edit_text);
         passwordText = (EditText) findViewById(R.id.password_edit_text);
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Intent intent = new Intent(AuthActivity.this, MainActivity.class);
-                    intent.putExtra("UID", mAuth.getCurrentUser().getUid());
-                    startActivity(intent);
-                } else {
-
-                }
-            }
-        };
-
         loginButton = (Button) findViewById(R.id.login_btn);
+        presenter = new AuthActivityPresenter(this, this);
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn(emailText.getText().toString(), passwordText.getText().toString());
+                presenter.signIn();
             }
         });
 
@@ -58,26 +46,29 @@ public class AuthActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+        presenter.addListener();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
+        presenter.removeListener();
     }
 
-    private void signIn(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()) {
-                    Toast.makeText(AuthActivity.this, "Auth went wrong", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
+
+    @Override
+    public String getEmailText() {
+        return emailText.getText().toString();
+    }
+
+    @Override
+    public String getPasswordText() {
+        return  passwordText.getText().toString();
     }
 
 }

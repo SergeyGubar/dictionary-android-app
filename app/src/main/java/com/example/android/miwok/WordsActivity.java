@@ -23,21 +23,19 @@ import java.util.HashMap;
 
 public class WordsActivity extends AppCompatActivity {
     private final String TAG = "WordsListActivity";
-    private String UID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words);
-        UID = getIntent().getStringExtra("UID");
-        Log.v(TAG, UID);
+        final String UID = getIntent().getStringExtra("UID");
         final FloatingActionButton floatButton = (FloatingActionButton) findViewById(R.id.float_btn);
         final ListView listView = (ListView) findViewById(R.id.list);
         final ArrayList<Word> listOfWords = new ArrayList<>();
         final DatabaseReference mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").
                 child(UID).child(getIntent().getStringExtra("activity"));
         final AVLoadingIndicatorView avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
-        avi.setVisibility(View.VISIBLE);
+
         avi.show();
 
         floatButton.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +74,6 @@ public class WordsActivity extends AppCompatActivity {
                 WordAdapter adapter = new WordAdapter(WordsActivity.this, listOfWords);
                 avi.hide();
                 listView.setAdapter(adapter);
-
             }
 
             @Override
