@@ -20,72 +20,67 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.android.miwok.R.id.avi;
+import static com.example.android.miwok.R.id.list;
 
-public class WordsActivity extends AppCompatActivity {
+
+public class WordsActivity extends AppCompatActivity implements WordsActivityApi {
     private final String TAG = "WordsListActivity";
+    private WordsActivityPresenter presenter;
+    private AVLoadingIndicatorView avi;
+    private ArrayList<Word> listOfWords;
+    private ListView listView;
+    private FloatingActionButton floatButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words);
-        final String UID = getIntent().getStringExtra("UID");
-        final FloatingActionButton floatButton = (FloatingActionButton) findViewById(R.id.float_btn);
-        final ListView listView = (ListView) findViewById(R.id.list);
-        final ArrayList<Word> listOfWords = new ArrayList<>();
-        final DatabaseReference mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").
-                child(UID).child(getIntent().getStringExtra("activity"));
-        final AVLoadingIndicatorView avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
+        floatButton = (FloatingActionButton) findViewById(R.id.float_btn);
+        listView = (ListView) findViewById(R.id.list);
+        avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
+        listOfWords = new ArrayList<>();
+
+        presenter = new WordsActivityPresenter(this, this);
 
         avi.show();
 
         floatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WordsActivity.this, AddActivity.class);
-                intent.putExtra("UID", UID);
-                startActivity(intent);
+                presenter.startAddActivity();
             }
         });
 
+        presenter.displayWordsData();
 
-        mDataBase.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                HashMap<String, String> wordHashMap = (HashMap<String, String>) dataSnapshot.getValue();
-                Word tempWord = new Word(wordHashMap.get("engWord"), wordHashMap.get("rusWord"));
-                listOfWords.add(tempWord);
-                WordAdapter adapter = new WordAdapter(WordsActivity.this, listOfWords);
-                avi.hide();
-                listView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                avi.show();
-                HashMap<String, String> wordHashMap = (HashMap<String, String>) dataSnapshot.getValue();
-                Word tempWord = new Word(wordHashMap.get("engWord"), wordHashMap.get("rusWord"));
-                int indexToRemove = listOfWords.indexOf(tempWord);
-                listOfWords.remove(indexToRemove);
-                WordAdapter adapter = new WordAdapter(WordsActivity.this, listOfWords);
-                avi.hide();
-                listView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
+
+
+    @Override
+    public String getUid() {
+        return getIntent().getStringExtra("UID");
+    }
+
+    @Override
+    public String getActivityName() {
+        return getIntent().getStringExtra("activity");
+    }
+
+    @Override
+    public AVLoadingIndicatorView getLoadingIndicator() {
+        return avi;
+    }
+
+    @Override
+    public ArrayList<Word> getWordsList() {
+        return listOfWords;
+    }
+
+    @Override
+    public ListView getListView() {
+        return listView;
+    }
+
 
 }
