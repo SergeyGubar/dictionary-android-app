@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +23,7 @@ public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
     private EditText passwordText;
     private Button loginButton;
     private AuthActivityPresenter presenter;
+    private TextView registerText;
 
 
     @Override
@@ -31,6 +33,7 @@ public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
         emailText = (EditText) findViewById(R.id.email_edit_text);
         passwordText = (EditText) findViewById(R.id.password_edit_text);
         loginButton = (Button) findViewById(R.id.login_btn);
+        registerText = (TextView) findViewById(R.id.register_text_view);
         presenter = new AuthActivityPresenter(this, this);
 
 
@@ -40,7 +43,12 @@ public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
                 presenter.signIn();
             }
         });
-
+        registerText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.signUp();
+            }
+        });
     }
 
     @Override
@@ -68,7 +76,9 @@ public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
 
     @Override
     public String getPasswordText() {
-        return  passwordText.getText().toString();
+        return passwordText.getText().toString();
     }
+
+
 
 }

@@ -20,9 +20,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.example.android.miwok.R.id.avi;
-import static com.example.android.miwok.R.id.list;
-
 
 public class WordsActivity extends AppCompatActivity implements WordsActivityApi {
     private final String TAG = "WordsListActivity";

@@ -37,7 +37,7 @@ class Word {
 
     @Override
     public boolean equals(Object o) {
-        if(o == null || getClass() != o.getClass()) {
+        if(!(o instanceof Word)) {
             return false;
         }
         Word wordToCompare = (Word)o;

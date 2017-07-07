@@ -52,4 +52,5 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="register_text_view">Don\'t have an account?</string>
 </resources>

@@ -1,19 +1,17 @@
 package com.example.android.miwok;
 
 import android.app.Activity;
-import android.widget.TextView;
 
 /**
- * Created by Sergey on 7/5/2017.
+ * Created by Sergey on 7/7/2017.
  */
 
-public interface AuthActivityApi {
-
-    Activity getActivity();
+public interface RegisterActivityApi {
 
     String getEmailText();
 
     String getPasswordText();
 
+    Activity getActivity();
 
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,7 +24,7 @@ public class AuthActivityPresenter {
     private Context ctx;
 
 
-    public AuthActivityPresenter(AuthActivityApi mApi, final Context ctx) {
+    public AuthActivityPresenter(final AuthActivityApi mApi, final Context ctx) {
         this.mApi = mApi;
         this.ctx = ctx;
         this.mAuth = FirebaseAuth.getInstance();
@@ -35,11 +36,13 @@ public class AuthActivityPresenter {
                     Intent intent = new Intent(ctx, MainActivity.class);
                     intent.putExtra("UID", mAuth.getCurrentUser().getUid());
                     ctx.startActivity(intent);
+                    mApi.getActivity().finish();
                 } else {
 
                 }
             }
         };
+
     }
 
     public void addListener() {
@@ -54,7 +57,8 @@ public class AuthActivityPresenter {
     public void signIn() {
         String email = mApi.getEmailText();
         String password = mApi.getPasswordText();
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(mApi.getActivity(), new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(mApi.getActivity(),
+                new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
@@ -62,5 +66,12 @@ public class AuthActivityPresenter {
                 }
             }
         });
+
     }
+
+    public void signUp() {
+        Intent intent = new Intent(ctx, RegisterActivity.class);
+        ctx.startActivity(intent);
+    }
+
 }
