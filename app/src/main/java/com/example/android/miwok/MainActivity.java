@@ -17,10 +17,15 @@ package com.example.android.miwok;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import static android.R.attr.tag;
 import static com.example.android.miwok.R.id.colors;
@@ -36,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         findViewById(numbers).setOnClickListener(new OnClickListener() {
             @Override
@@ -76,5 +80,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.log_out_menu_item:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this, RegisterActivity.class));
+                finish();
+        }
+        return true;
     }
 }

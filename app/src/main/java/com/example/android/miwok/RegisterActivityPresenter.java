@@ -38,7 +38,6 @@ public class RegisterActivityPresenter {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
                             Toast.makeText(context, "Registered succesfully!", Toast.LENGTH_SHORT).show();
                             progressDialog.hide();
                             mApi.getActivity().finish();
