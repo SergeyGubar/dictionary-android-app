@@ -31,6 +31,7 @@ public class RegisterActivityPresenter {
     }
 
     public void signUp() {
+        progressDialog.setTitle(R.string.register_process_text);;
         progressDialog.setMessage("Just a moment");
         progressDialog.show();
         mAuth.createUserWithEmailAndPassword(mApi.getEmailText(), mApi.getPasswordText()).addOnCompleteListener(

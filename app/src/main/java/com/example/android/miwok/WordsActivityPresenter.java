@@ -1,7 +1,9 @@
 package com.example.android.miwok;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -18,16 +20,29 @@ import static com.example.android.miwok.R.id.avi;
  * Created by Sergey on 7/6/2017.
  */
 
-public class WordsActivityPresenter {
+class WordsActivityPresenter {
     private Context ctx;
     private WordsActivityApi mApi;
     private DatabaseReference mDataBase;
 
-    public WordsActivityPresenter(Context ctx, WordsActivityApi mApi) {
+    WordsActivityPresenter(Context ctx, WordsActivityApi mApi) {
         this.ctx = ctx;
         this.mApi = mApi;
         mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").
                 child(mApi.getUid()).child(mApi.getActivityName());
+    }
+
+    void startAnimation() {
+        mApi.getLoadingIndicator().show();
+        Runnable progress = new Runnable() {
+            @Override
+            public void run() {
+                mApi.getLoadingIndicator().hide();
+            }
+        };
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progress, 3000);
+
     }
 
 

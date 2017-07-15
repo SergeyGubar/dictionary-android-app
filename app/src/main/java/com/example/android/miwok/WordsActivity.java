@@ -38,17 +38,16 @@ public class WordsActivity extends AppCompatActivity implements WordsActivityApi
         avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
         listOfWords = new ArrayList<>();
 
+
+
         presenter = new WordsActivityPresenter(this, this);
-
-        avi.show();
-
         floatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 presenter.startAddActivity();
             }
         });
-
+        presenter.startAnimation();
         presenter.displayWordsData();
 
     }

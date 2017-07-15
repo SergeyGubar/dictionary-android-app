@@ -39,7 +39,9 @@
     <string name="english_word">English word</string>
     <string name="add_word">add word</string>
     <string name="title_activity_login">Sign in</string>
-
+    <string name="register_process_text">We\'re registering you..</string>
+    <string name="login_process_text">We\'re logging you in..</string>
+    <string name="just_a_moment">Just a moment</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

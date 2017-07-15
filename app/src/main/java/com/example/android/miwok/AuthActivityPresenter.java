@@ -1,10 +1,9 @@
 package com.example.android.miwok;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,7 +21,7 @@ public class AuthActivityPresenter {
     private AuthActivityApi mApi;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Context ctx;
-
+    private ProgressDialog progressDialog;
 
     public AuthActivityPresenter(final AuthActivityApi mApi, final Context ctx) {
         this.mApi = mApi;
@@ -57,6 +56,10 @@ public class AuthActivityPresenter {
     public void signIn() {
         String email = mApi.getEmailText();
         String password = mApi.getPasswordText();
+        progressDialog = new ProgressDialog(ctx, ProgressDialog.STYLE_SPINNER);
+        progressDialog.setTitle(R.string.login_process_text);
+        progressDialog.setMessage("Just a moment");
+        progressDialog.show();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(mApi.getActivity(),
                 new OnCompleteListener<AuthResult>() {
             @Override
@@ -64,6 +67,7 @@ public class AuthActivityPresenter {
                 if (!task.isSuccessful()) {
                     Toast.makeText(ctx, "Auth went wrong", Toast.LENGTH_SHORT).show();
                 }
+                progressDialog.hide();
             }
         });
 
