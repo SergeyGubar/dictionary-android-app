@@ -1,10 +1,10 @@
-package com.example.android.miwok;
+package com.example.android.app;
 
 /**
  * Created by Sergey on 6/22/2017.
  */
 
-class Word {
+public class Word {
     private String rusWord;
     private String engWord;
     private int imageSource;

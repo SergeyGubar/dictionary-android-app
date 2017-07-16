@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.miwok.AuthActivity">
+    tools:context="com.example.android.app.AuthActivity">
 
     <EditText
         android:id="@+id/email_edit_text"

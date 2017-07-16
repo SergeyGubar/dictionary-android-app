@@ -1,4 +1,4 @@
-package com.example.android.miwok;
+package com.example.interfaces;
 
 import java.util.Objects;
 

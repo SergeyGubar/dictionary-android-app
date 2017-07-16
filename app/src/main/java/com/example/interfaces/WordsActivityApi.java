@@ -1,7 +1,8 @@
-package com.example.android.miwok;
+package com.example.interfaces;
 
 import android.widget.ListView;
 
+import com.example.android.app.Word;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;

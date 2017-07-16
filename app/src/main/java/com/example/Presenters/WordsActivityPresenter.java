@@ -1,38 +1,38 @@
-package com.example.android.miwok;
+package com.example.Presenters;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 
+import com.example.android.app.AddActivity;
+import com.example.android.app.Word;
+import com.example.android.app.WordAdapter;
+import com.example.interfaces.WordsActivityApi;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.HashMap;
-
-import static com.example.android.miwok.R.id.avi;
 
 /**
  * Created by Sergey on 7/6/2017.
  */
 
-class WordsActivityPresenter {
+public class WordsActivityPresenter {
     private Context ctx;
     private WordsActivityApi mApi;
     private DatabaseReference mDataBase;
 
-    WordsActivityPresenter(Context ctx, WordsActivityApi mApi) {
+    public WordsActivityPresenter(Context ctx, WordsActivityApi mApi) {
         this.ctx = ctx;
         this.mApi = mApi;
         mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").
                 child(mApi.getUid()).child(mApi.getActivityName());
     }
 
-    void startAnimation() {
+    public void startAnimation() {
         mApi.getLoadingIndicator().show();
         Runnable progress = new Runnable() {
             @Override
@@ -46,13 +46,13 @@ class WordsActivityPresenter {
     }
 
 
-    void startAddActivity() {
+    public void startAddActivity() {
         Intent intent = new Intent(ctx, AddActivity.class);
         intent.putExtra("UID", mApi.getUid());
         ctx.startActivity(intent);
     }
 
-    void displayWordsData() {
+    public void displayWordsData() {
         mDataBase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

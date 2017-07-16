@@ -1,4 +1,4 @@
-package com.example.android.miwok;
+package com.example.android.app;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.Presenters.RegisterActivityPresenter;
+import com.example.interfaces.RegisterActivityApi;
+import com.example.interfaces.Registrable;
+
 public class RegisterActivity extends AppCompatActivity implements RegisterActivityApi {
     private Button registerButton;
     private EditText emailEditText;
     private EditText passwordEditText;
-    private RegisterActivityPresenter presenter;
+    private Registrable presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +25,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterActiv
         emailEditText = (EditText) findViewById(R.id.register_email);
         passwordEditText = (EditText) findViewById(R.id.register_password);
         presenter = new RegisterActivityPresenter(this, this);
-
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

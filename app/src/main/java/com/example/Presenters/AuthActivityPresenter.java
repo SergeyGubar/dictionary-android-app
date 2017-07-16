@@ -1,4 +1,4 @@
-package com.example.android.miwok;
+package com.example.Presenters;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -6,6 +6,11 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.example.android.app.MainActivity;
+import com.example.android.app.R;
+import com.example.android.app.RegisterActivity;
+import com.example.interfaces.AuthActivityApi;
+import com.example.interfaces.Authorized;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -16,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
  * Created by Sergey on 7/5/2017.
  */
 
-public class AuthActivityPresenter {
+public class AuthActivityPresenter implements Authorized {
     private FirebaseAuth mAuth;
     private AuthActivityApi mApi;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -44,15 +49,16 @@ public class AuthActivityPresenter {
 
     }
 
-    public void addListener() {
+    public void addFirebaseListener() {
         mAuth.addAuthStateListener(mAuthListener);
     }
 
-    public void removeListener() {
+    public void removeFirebaseListener() {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
     public void signIn() {
         String email = mApi.getEmailText();
         String password = mApi.getPasswordText();
@@ -70,10 +76,9 @@ public class AuthActivityPresenter {
                 progressDialog.hide();
             }
         });
-
     }
 
-    public void signUp() {
+    public void signUpActivityStart() {
         Intent intent = new Intent(ctx, RegisterActivity.class);
         ctx.startActivity(intent);
     }

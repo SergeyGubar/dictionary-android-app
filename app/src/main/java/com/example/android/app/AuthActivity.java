@@ -1,22 +1,15 @@
-package com.example.android.miwok;
+package com.example.android.app;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.Presenters.AuthActivityPresenter;
+import com.example.interfaces.AuthActivityApi;
 
 public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
     private EditText emailText;
@@ -46,24 +39,31 @@ public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
         registerText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.signUp();
+                presenter.signUpActivityStart();
             }
         });
     }
 
+
+    /**
+     * These two methods are used for Firebase interaction, can be removed, if
+     * other database is chosen (implement Authorized interface)
+     */
     @Override
     public void onStart() {
         super.onStart();
-        presenter.addListener();
+        presenter.addFirebaseListener();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        presenter.removeListener();
+        presenter.removeFirebaseListener();
     }
 
-
+    /**
+     * Api methods for interaction of presenter and activity
+     */
     @Override
     public Activity getActivity() {
         return this;
