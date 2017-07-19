@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.example.android.app.ForgotPasswordActivity;
 import com.example.android.app.MainActivity;
 import com.example.android.app.R;
 import com.example.android.app.RegisterActivity;
@@ -81,6 +82,10 @@ public class AuthActivityPresenter implements Authorized {
     public void signUpActivityStart() {
         Intent intent = new Intent(ctx, RegisterActivity.class);
         ctx.startActivity(intent);
+    }
+
+    public void forgotPassActivityStart() {
+        ctx.startActivity(new Intent(ctx, ForgotPasswordActivity.class));
     }
 
 }

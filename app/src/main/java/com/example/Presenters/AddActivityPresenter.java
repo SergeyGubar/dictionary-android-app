@@ -53,7 +53,6 @@ public class AddActivityPresenter {
     public AddActivityPresenter(Context ctx, AddActivityApi api) {
         this.api = api;
         this.ctx = ctx;
-
     }
 
 

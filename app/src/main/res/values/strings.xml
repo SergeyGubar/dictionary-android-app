@@ -57,4 +57,6 @@
     <string name="register_text_view">Don\'t have an account?</string>
     <string name="register_btn">Register</string>
     <string name="log_out">Log out</string>
+    <string name="enter_your_email_here">Enter your email here</string>
+    <string name="send_reset_link">Send reset link</string>
 </resources>

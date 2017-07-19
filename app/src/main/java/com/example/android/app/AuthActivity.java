@@ -1,6 +1,7 @@
 package com.example.android.app;
 
 import android.app.Activity;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +18,7 @@ public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
     private Button loginButton;
     private AuthActivityPresenter presenter;
     private TextView registerText;
-
+    private TextView forgotPasswordTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
         loginButton = (Button) findViewById(R.id.login_btn);
         registerText = (TextView) findViewById(R.id.register_text_view);
         presenter = new AuthActivityPresenter(this, this);
-
+        forgotPasswordTextView = (TextView) findViewById(R.id.forgot_password_text_view);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +43,14 @@ public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
                 presenter.signUpActivityStart();
             }
         });
+
+        forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.forgotPassActivityStart();
+            }
+        });
+
     }
 
 

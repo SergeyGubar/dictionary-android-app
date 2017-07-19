@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.log_out_menu_item:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(this, RegisterActivity.class));
+                startActivity(new Intent(this, AuthActivity.class));
                 finish();
         }
         return true;

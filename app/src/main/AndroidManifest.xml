@@ -29,17 +29,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.android.app.AuthActivity">
+        <activity android:name=".AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.android.app.AddActivity" />
-        <activity android:name="com.example.android.app.WordsActivity" />
-        <activity android:name="com.example.android.app.MainActivity" />
-        <activity android:name="com.example.android.app.RegisterActivity"></activity>
+        <activity android:name=".AddActivity" />
+        <activity android:name=".WordsActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name="com.example.android.miwok.ForgotPasswordActivity" />
+        <activity android:name=".ForgotPasswordActivity"></activity>
     </application>
 
 </manifest>
