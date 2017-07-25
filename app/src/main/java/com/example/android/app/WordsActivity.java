@@ -1,8 +1,10 @@
 package com.example.android.app;
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -25,6 +27,7 @@ public class WordsActivity extends AppCompatActivity implements WordsActivityApi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         floatButton = (FloatingActionButton) findViewById(R.id.float_btn);
         listView = (ListView) findViewById(R.id.list);
         avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
@@ -43,7 +46,15 @@ public class WordsActivity extends AppCompatActivity implements WordsActivityApi
         presenter.displayWordsData();
 
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public String getUid() {
