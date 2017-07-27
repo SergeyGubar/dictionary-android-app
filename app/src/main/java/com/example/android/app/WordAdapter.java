@@ -35,8 +35,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
             engTextView.setText(currWord.getEngWord());
 
 
-            ImageView pictureView = (ImageView) listItemView.findViewById(R.id.image_placeholder);
-            pictureView.setImageResource(currWord.getImageSource());
+
         } catch (NullPointerException ex) {
             Log.e("WordAdapter", "KOLENO PROSTRELENO");
         }

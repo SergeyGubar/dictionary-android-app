@@ -42,7 +42,6 @@ public class WordsActivityPresenter {
         };
         Handler pdCanceller = new Handler();
         pdCanceller.postDelayed(progress, 3000);
-
     }
 
 

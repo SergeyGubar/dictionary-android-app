@@ -17,7 +17,9 @@ package com.example.android.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.NavUtils;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,8 +28,6 @@ import android.view.View.OnClickListener;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import static com.example.android.app.R.id.colors;
-import static com.example.android.app.R.id.numbers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,43 +40,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(numbers).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent numbers = new Intent(MainActivity.this, WordsActivity.class);
-                numbers.putExtra(KEY, "Numbers");
-                numbers.putExtra(USERID, getIntent().getStringExtra("UID"));
-                startActivity(numbers);
-            }
-        });
-        findViewById(colors).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent colors = new Intent(MainActivity.this, WordsActivity.class);
-                colors.putExtra(KEY, "Colors");
-                colors.putExtra(USERID, getIntent().getStringExtra("UID"));
-                startActivity(colors);
-            }
-        });
-        findViewById(R.id.family).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent family = new Intent(MainActivity.this, WordsActivity.class);
-                family.putExtra(KEY, "Family");
-                family.putExtra(USERID, getIntent().getStringExtra("UID"));
+        ViewPager viewPager = (ViewPager) findViewById(R.id.words_main_pager);
+        WordsFragmentAdapter adapter = new WordsFragmentAdapter(getSupportFragmentManager());
 
-                startActivity(family);
-            }
-        });
-        findViewById(R.id.phrases).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent stuff = new Intent(MainActivity.this, WordsActivity.class);
-                stuff.putExtra(KEY, "Stuff");
-                stuff.putExtra(USERID, getIntent().getStringExtra("UID"));
-                startActivity(stuff);
-            }
-        });
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabs = (TabLayout) findViewById(R.id.sliding_tabs);
+
+        tabs.setupWithViewPager(viewPager);
 
     }
 
