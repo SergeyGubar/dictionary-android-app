@@ -63,20 +63,26 @@ public class AuthActivityPresenter implements Authorized {
     public void signIn() {
         String email = mApi.getEmailText();
         String password = mApi.getPasswordText();
-        progressDialog = new ProgressDialog(ctx, ProgressDialog.STYLE_SPINNER);
-        progressDialog.setTitle(R.string.login_process_text);
-        progressDialog.setMessage("Just a moment");
-        progressDialog.show();
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(mApi.getActivity(),
-                new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()) {
-                    Toast.makeText(ctx, "Auth went wrong", Toast.LENGTH_SHORT).show();
-                }
-                progressDialog.hide();
-            }
-        });
+        if (!email.equals("") && !password.equals("")) {
+            progressDialog = new ProgressDialog(ctx, ProgressDialog.STYLE_SPINNER);
+            progressDialog.setTitle(R.string.login_process_text);
+            progressDialog.setMessage("Just a moment");
+            progressDialog.show();
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(mApi.getActivity(),
+                    new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(ctx, "Auth went wrong", Toast.LENGTH_SHORT).show();
+                            }
+                            progressDialog.hide();
+                        }
+                    });
+        } else {
+            mApi.resetFields();
+            Toast.makeText(ctx, "Enter email and password!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void signUpActivityStart() {

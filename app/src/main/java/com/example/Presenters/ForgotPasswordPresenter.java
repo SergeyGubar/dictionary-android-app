@@ -15,28 +15,33 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 
 public class ForgotPasswordPresenter implements ResetPassword {
-    private Context mCtx;
+    private Context ctx;
     private ForgotPasswordApi mApi;
 
 
     public ForgotPasswordPresenter(Context mCtx, ForgotPasswordApi mApi) {
-        this.mCtx = mCtx;
+        this.ctx = mCtx;
         this.mApi = mApi;
     }
 
     @Override
     public void sendResetPasswordLink() {
         String email = mApi.getEmailText();
-        FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()) {
-                    Toast.makeText(mCtx, "Email sent", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(mCtx, "Something went wrong :(", Toast.LENGTH_SHORT).show();
+        if(!email.equals("")) {
+            FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()) {
+                        Toast.makeText(ctx, "Email sent", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ctx, "Something went wrong :(", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            Toast.makeText(ctx, "Enter your email", Toast.LENGTH_SHORT).show();
+        }
+
         mApi.resetEmailText();
 
 

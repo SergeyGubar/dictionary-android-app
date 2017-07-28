@@ -15,5 +15,6 @@ public interface AuthActivityApi {
 
     String getPasswordText();
 
+    void resetFields();
 
 }

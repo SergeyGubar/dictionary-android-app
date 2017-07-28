@@ -88,6 +88,13 @@ public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
         return passwordText.getText().toString();
     }
 
+    @Override
+    public void resetFields() {
+        emailText.setText("");
+        passwordText.setText("");
+    }
+
+
 
 
 }

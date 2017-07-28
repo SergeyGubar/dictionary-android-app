@@ -19,39 +19,47 @@ import java.util.HashMap;
  */
 
 public class AddActivityPresenter {
-    private AddActivityApi api;
+    private AddActivityApi mApi;
     private DatabaseReference mDataBase;
     private Context ctx;
     public void addWord() {
-        mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").child(api.getUid())
-                .child(api.getSelectedSpinnerItem().toString());
-        Word word = new Word(api.getRusText(), api.getEngText());
-        HashMap<String, String> wordHash = new HashMap<>();
-        wordHash.put("engWord", word.getEngWord());
-        wordHash.put("rusWord", word.getRusWord());
+        mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").child(mApi.getUid())
+                .child(mApi.getSelectedSpinnerItem().toString());
+        String rus = mApi.getRusText();
+        String eng = mApi.getEngText();
 
-        mDataBase.child(word.getEngWord() + " | " + word.getRusWord()).setValue(wordHash).addOnCompleteListener
-                (new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(ctx, "Word Saved!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(ctx, "An error " +
-                                    "has occured", Toast.LENGTH_SHORT).show();
+        if(!rus.equals("") && !eng.equals("")) {
+            Word word = new Word(rus, eng);
+            HashMap<String, String> wordHash = new HashMap<>();
+            wordHash.put("engWord", word.getEngWord());
+            wordHash.put("rusWord", word.getRusWord());
+
+            mDataBase.child(word.getEngWord() + " | " + word.getRusWord()).setValue(wordHash).addOnCompleteListener
+                    (new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(ctx, "Word Saved!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ctx, "An error " +
+                                        "has occured", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
-        api.resetText();
+                    });
+        } else {
+            Toast.makeText(ctx, "Empty word cannot be added", Toast.LENGTH_SHORT).show();
+        }
+
+        mApi.resetText();
     }
 
     public void setAdapter() {
-        api.setSpinnerAdapter();
+        mApi.setSpinnerAdapter();
     }
 
 
     public AddActivityPresenter(Context ctx, AddActivityApi api) {
-        this.api = api;
+        this.mApi = api;
         this.ctx = ctx;
     }
 
