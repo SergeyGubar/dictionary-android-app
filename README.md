@@ -1,10 +1,5 @@
-This app was built using Miwok app from Udacity's course and adapted for the rus-eng translations.
+This app provides basic functionality of rus-eng dictionary. It was inspired and based on Miwok app from the Udacity Course.
 ===================================
-Miwok App
-===================================
-
-This app displays lists of vocabulary words for the user to learn the Miwok language.
-Used in a Udacity course in the Beginning Android Nanodegree.
 
 Pre-requisites
 --------------
