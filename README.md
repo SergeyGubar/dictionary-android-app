@@ -1,5 +1,5 @@
 This app provides basic functionality of rus-eng dictionary. It was inspired and based on Miwok app from the Udacity Course.
-===================================
+
 
 Pre-requisites
 --------------
