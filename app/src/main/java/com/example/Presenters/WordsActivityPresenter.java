@@ -59,6 +59,7 @@ public class WordsActivityPresenter {
                 Word tempWord = new Word(wordHashMap.get("engWord"), wordHashMap.get("rusWord"));
                 mApi.getWordsList().add(tempWord);
                 WordAdapter adapter = new WordAdapter(ctx, mApi.getWordsList());
+                
                 mApi.getLoadingIndicator().hide();
                 mApi.getListView().setAdapter(adapter);
             }
