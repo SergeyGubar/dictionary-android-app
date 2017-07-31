@@ -29,17 +29,6 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="com.example.android.app.WordsActivity" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/float_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/ic_add_black_48dp"
-        app:backgroundTint="@color/category_family"
-        app:fabSize="normal" />
+
 
 </RelativeLayout>

@@ -42,8 +42,8 @@ public class WordAdapter extends ArrayAdapter<Word> {
         return listItemView;
     }
 
-    public WordAdapter(Context context, ArrayList<Word> list) {
-        super(context, 0, list);
+    public WordAdapter(Context context) {
+        super(context, 0);
     }
 
 }

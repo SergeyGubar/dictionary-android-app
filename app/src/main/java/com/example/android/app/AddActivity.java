@@ -62,11 +62,6 @@ public class AddActivity extends AppCompatActivity implements AddActivityApi {
     }
 
     @Override
-    public String getUid() {
-        return getIntent().getStringExtra("UID");
-    }
-
-    @Override
     public Object getSelectedSpinnerItem() {
         return spinner.getSelectedItem();
     }

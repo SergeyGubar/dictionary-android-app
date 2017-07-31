@@ -17,8 +17,8 @@ package com.example.android.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -26,28 +26,37 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.example.Presenters.MainActivityPresenter;
+import com.example.interfaces.MainActivityApi;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainActivityApi {
 
     private final String KEY = "activity";
     private final String USERID = "UID";
     private final String TAG = "MainActivity";
+    private MainActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ViewPager viewPager = (ViewPager) findViewById(R.id.words_main_pager);
         WordsFragmentAdapter adapter = new WordsFragmentAdapter(getSupportFragmentManager());
-
+        presenter = new MainActivityPresenter(this, this);
         viewPager.setAdapter(adapter);
 
         TabLayout tabs = (TabLayout) findViewById(R.id.sliding_tabs);
 
         tabs.setupWithViewPager(viewPager);
+        FloatingActionButton btn = (FloatingActionButton) findViewById(R.id.float_btn);
+        btn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.startAddActivity();
+            }
+        });
 
     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.example.Helpers.FirebaseService;
 import com.example.android.app.Word;
 import com.example.interfaces.AddActivityApi;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,7 +24,7 @@ public class AddActivityPresenter {
     private DatabaseReference mDataBase;
     private Context ctx;
     public void addWord() {
-        mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").child(mApi.getUid())
+        mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").child(FirebaseService.getUserUid())
                 .child(mApi.getSelectedSpinnerItem().toString());
         String rus = mApi.getRusText();
         String eng = mApi.getEngText();

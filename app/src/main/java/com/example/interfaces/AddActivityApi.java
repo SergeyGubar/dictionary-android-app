@@ -11,8 +11,6 @@ public interface AddActivityApi {
 
     String getRusText();
 
-    String getUid();
-
     Object getSelectedSpinnerItem();
 
     void resetText();

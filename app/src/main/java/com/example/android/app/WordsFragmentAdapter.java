@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.Fragments.WordsFragment;
+import com.example.Helpers.FirebaseService;
 import com.google.firebase.auth.FirebaseAuth;
 
 import static android.R.attr.fragment;
@@ -26,28 +27,22 @@ public class WordsFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        mAuth = FirebaseAuth.getInstance();
         WordsFragment fragment = new WordsFragment();
         Bundle b = new Bundle();
         switch (position) {
-
             case 0:
-                b.putString(UID, mAuth.getCurrentUser().getUid());
                 b.putString(KEY, "Colors");
                 fragment.setArguments(b);
                 return fragment;
             case 1:
-                b.putString(UID, mAuth.getCurrentUser().getUid());
                 b.putString(KEY, "Numbers");
                 fragment.setArguments(b);
                 return fragment;
             case 2:
-                b.putString(UID, mAuth.getCurrentUser().getUid());
                 b.putString(KEY, "Stuff");
                 fragment.setArguments(b);
                 return fragment;
             case 3:
-                b.putString(UID, mAuth.getCurrentUser().getUid());
                 b.putString(KEY, "Family");
                 fragment.setArguments(b);
                 return fragment;

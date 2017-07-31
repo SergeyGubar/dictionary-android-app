@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 
+import com.example.Helpers.FirebaseService;
 import com.example.android.app.AddActivity;
 import com.example.android.app.Word;
 import com.example.android.app.WordAdapter;
@@ -21,15 +22,15 @@ import java.util.HashMap;
  */
 
 public class WordsActivityPresenter {
-    private Context ctx;
+    private Context mCtx;
     private WordsActivityApi mApi;
     private DatabaseReference mDataBase;
 
     public WordsActivityPresenter(Context ctx, WordsActivityApi mApi) {
-        this.ctx = ctx;
+        this.mCtx = ctx;
         this.mApi = mApi;
-        mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").
-                child(mApi.getUid()).child(mApi.getActivityName());
+        mDataBase = FirebaseService.getWordReference().
+                child(FirebaseService.getUserUid()).child(mApi.getActivityName());
     }
 
     public void startAnimation() {
@@ -45,23 +46,13 @@ public class WordsActivityPresenter {
     }
 
 
-    public void startAddActivity() {
-        Intent intent = new Intent(ctx, AddActivity.class);
-        intent.putExtra("UID", mApi.getUid());
-        ctx.startActivity(intent);
-    }
-
     public void displayWordsData() {
         mDataBase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                HashMap<String, String> wordHashMap = (HashMap<String, String>) dataSnapshot.getValue();
-                Word tempWord = new Word(wordHashMap.get("engWord"), wordHashMap.get("rusWord"));
-                mApi.getWordsList().add(tempWord);
-                WordAdapter adapter = new WordAdapter(ctx, mApi.getWordsList());
-                
+                Word word = FirebaseService.getWord(dataSnapshot);
+                mApi.getAdapter().add(word);
                 mApi.getLoadingIndicator().hide();
-                mApi.getListView().setAdapter(adapter);
             }
 
             @Override
@@ -72,13 +63,9 @@ public class WordsActivityPresenter {
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 mApi.getLoadingIndicator().show();
-                HashMap<String, String> wordHashMap = (HashMap<String, String>) dataSnapshot.getValue();
-                Word tempWord = new Word(wordHashMap.get("engWord"), wordHashMap.get("rusWord"));
-                int indexToRemove = mApi.getWordsList().indexOf(tempWord);
-                mApi.getWordsList().remove(indexToRemove);
-                WordAdapter adapter = new WordAdapter(ctx, mApi.getWordsList());
+                Word tempWord = FirebaseService.getWord(dataSnapshot);
+                mApi.getAdapter().remove(tempWord);
                 mApi.getLoadingIndicator().hide();
-                mApi.getListView().setAdapter(adapter);
             }
 
             @Override
