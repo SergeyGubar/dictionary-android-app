@@ -21,7 +21,6 @@ public class MainActivityPresenter {
     }
     public void startAddActivity() {
         Intent intent = new Intent(mCtx, AddActivity.class);
-//      intent.putExtra("UID", FirebaseService.getUserUid());
         mCtx.startActivity(intent);
     }
 

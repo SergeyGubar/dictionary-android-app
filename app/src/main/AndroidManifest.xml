@@ -36,13 +36,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddActivity"
-            android:parentActivityName=".WordsActivity" />
+            android:name=".AddActivity" />
 
         <!--Parent activities logic for "Up" button-->
-        <activity
-            android:name=".WordsActivity"
-            android:parentActivityName=".MainActivity" />
+
         <activity android:name=".MainActivity" />
         <activity
             android:name=".RegisterActivity"

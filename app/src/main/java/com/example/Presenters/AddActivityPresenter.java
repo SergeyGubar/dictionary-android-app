@@ -23,30 +23,15 @@ public class AddActivityPresenter {
     private AddActivityApi mApi;
     private DatabaseReference mDataBase;
     private Context ctx;
+
     public void addWord() {
-        mDataBase = FirebaseDatabase.getInstance().getReference().child("Words").child(FirebaseService.getUserUid())
-                .child(mApi.getSelectedSpinnerItem().toString());
+
         String rus = mApi.getRusText();
         String eng = mApi.getEngText();
-
-        if(!rus.equals("") && !eng.equals("")) {
+        String category = mApi.getSelectedSpinnerItem().toString();
+        if (!rus.equals("") && !eng.equals("")) {
             Word word = new Word(rus, eng);
-            HashMap<String, String> wordHash = new HashMap<>();
-            wordHash.put("engWord", word.getEngWord());
-            wordHash.put("rusWord", word.getRusWord());
-
-            mDataBase.child(word.getEngWord() + " | " + word.getRusWord()).setValue(wordHash).addOnCompleteListener
-                    (new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(ctx, "Word Saved!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(ctx, "An error " +
-                                        "has occured", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+            FirebaseService.addWord(ctx, word, category);
         } else {
             Toast.makeText(ctx, "Empty word cannot be added", Toast.LENGTH_SHORT).show();
         }

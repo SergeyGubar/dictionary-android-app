@@ -38,7 +38,6 @@ public class WordsFragment extends Fragment implements WordsActivityApi {
         mPresenter.startAnimation();
         mPresenter.displayWordsData();
         return rootView;
-
     }
 
     @Override

@@ -1,6 +1,13 @@
 package com.example.Helpers;
 
+import android.content.Context;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.widget.Toast;
+
 import com.example.android.app.Word;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -22,6 +29,27 @@ public class FirebaseService {
 
     public static FirebaseDatabase getFirebaseDatabaseInstance() {
         return FirebaseDatabase.getInstance();
+    }
+
+    public static void addWord(final Context ctx, Word word, String category) {
+        DatabaseReference mDataBase = getWordReference().child(FirebaseService.getUserUid())
+                .child(category);
+        HashMap<String, String> wordHash = new HashMap<>();
+        wordHash.put("engWord", word.getEngWord());
+        wordHash.put("rusWord", word.getRusWord());
+
+        mDataBase.child(word.getEngWord() + " | " + word.getRusWord()).setValue(wordHash).addOnCompleteListener
+                (new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ctx, "Word Saved!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ctx, "An error " +
+                                    "has occured", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     public static FirebaseUser getUser() {
