@@ -51,7 +51,7 @@ public class WordsActivityPresenter {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Word word = FirebaseService.getWord(dataSnapshot);
-                mApi.getAdapter().add(word);
+                mApi.getAdapter().addWord(word);
                 mApi.getLoadingIndicator().hide();
             }
 
@@ -64,7 +64,7 @@ public class WordsActivityPresenter {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 mApi.getLoadingIndicator().show();
                 Word tempWord = FirebaseService.getWord(dataSnapshot);
-                mApi.getAdapter().remove(tempWord);
+                mApi.getAdapter().removeWord(tempWord);
                 mApi.getLoadingIndicator().hide();
             }
 
