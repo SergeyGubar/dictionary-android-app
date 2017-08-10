@@ -36,7 +36,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddActivity" />
+            android:name=".AddActivity"
+            android:parentActivityName=".MainActivity"/>
 
         <!--Parent activities logic for "Up" button-->
 

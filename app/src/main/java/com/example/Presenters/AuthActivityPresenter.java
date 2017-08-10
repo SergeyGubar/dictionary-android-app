@@ -42,8 +42,6 @@ public class AuthActivityPresenter implements Authorized {
                     intent.putExtra("UID", mAuth.getCurrentUser().getUid());
                     ctx.startActivity(intent);
                     mApi.getActivity().finish();
-                } else {
-
                 }
             }
         };
