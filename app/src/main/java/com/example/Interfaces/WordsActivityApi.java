@@ -1,13 +1,7 @@
-package com.example.interfaces;
-
-import android.widget.ListView;
+package com.example.Interfaces;
 
 import com.example.Helpers.WordsRecyclerAdapter;
-import com.example.android.app.Word;
-import com.example.android.app.WordAdapter;
 import com.wang.avi.AVLoadingIndicatorView;
-
-import java.util.ArrayList;
 
 /**
  * Created by Sergey on 7/6/2017.

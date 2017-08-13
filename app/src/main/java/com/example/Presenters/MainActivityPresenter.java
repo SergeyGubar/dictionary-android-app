@@ -3,9 +3,8 @@ package com.example.Presenters;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.Helpers.FirebaseService;
 import com.example.android.app.AddActivity;
-import com.example.interfaces.MainActivityApi;
+import com.example.Interfaces.MainActivityApi;
 
 /**
  * Created by Sergey on 7/31/2017.

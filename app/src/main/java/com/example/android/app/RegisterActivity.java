@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.Presenters.RegisterActivityPresenter;
-import com.example.interfaces.RegisterActivityApi;
-import com.example.interfaces.Registrable;
+import com.example.Interfaces.RegisterActivityApi;
+import com.example.Interfaces.Registrable;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterActivityApi {
     private Button registerButton;

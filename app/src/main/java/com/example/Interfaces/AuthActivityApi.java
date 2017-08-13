@@ -1,7 +1,6 @@
-package com.example.interfaces;
+package com.example.Interfaces;
 
 import android.app.Activity;
-import android.widget.TextView;
 
 /**
  * Created by Sergey on 7/5/2017.

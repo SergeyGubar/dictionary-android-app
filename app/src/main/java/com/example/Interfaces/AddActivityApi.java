@@ -1,6 +1,4 @@
-package com.example.interfaces;
-
-import java.util.Objects;
+package com.example.Interfaces;
 
 /**
  * Created by Sergey on 7/5/2017.

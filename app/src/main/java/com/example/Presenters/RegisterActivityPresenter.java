@@ -8,8 +8,8 @@ import android.widget.Toast;
 
 import com.example.android.app.AuthActivity;
 import com.example.android.app.R;
-import com.example.interfaces.RegisterActivityApi;
-import com.example.interfaces.Registrable;
+import com.example.Interfaces.RegisterActivityApi;
+import com.example.Interfaces.Registrable;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

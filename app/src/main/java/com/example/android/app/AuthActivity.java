@@ -1,7 +1,6 @@
 package com.example.android.app;
 
 import android.app.Activity;
-import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.Presenters.AuthActivityPresenter;
-import com.example.interfaces.AuthActivityApi;
+import com.example.Interfaces.AuthActivityApi;
 
 public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
     private EditText emailText;

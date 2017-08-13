@@ -26,9 +26,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.example.Helpers.FirebaseService;
 import com.example.Presenters.MainActivityPresenter;
-import com.example.interfaces.MainActivityApi;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.Interfaces.MainActivityApi;
 
 
 public class MainActivity extends AppCompatActivity implements MainActivityApi {
@@ -69,11 +69,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.log_out_menu_item:
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(this, AuthActivity.class));
-                finish();
+            case R.id.settings_menu_item:
+                Intent settingsActivityIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsActivityIntent);
+                break;
+            case R.id.log_out_action:
+                FirebaseService.logOut(this);
+                break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

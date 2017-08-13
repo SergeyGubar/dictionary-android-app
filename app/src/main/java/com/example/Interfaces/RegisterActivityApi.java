@@ -1,4 +1,4 @@
-package com.example.interfaces;
+package com.example.Interfaces;
 
 import android.app.Activity;
 

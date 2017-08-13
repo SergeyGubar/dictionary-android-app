@@ -1,21 +1,15 @@
 package com.example.Presenters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 
 import com.example.Helpers.FirebaseService;
-import com.example.android.app.AddActivity;
 import com.example.android.app.Word;
-import com.example.android.app.WordAdapter;
-import com.example.interfaces.WordsActivityApi;
+import com.example.Interfaces.WordsActivityApi;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
 
 /**
  * Created by Sergey on 7/6/2017.

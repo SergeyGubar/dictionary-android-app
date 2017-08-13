@@ -15,7 +15,7 @@ import com.example.Helpers.WordsRecyclerAdapter;
 import com.example.Presenters.WordsActivityPresenter;
 import com.example.android.app.R;
 import com.example.android.app.WordAdapter;
-import com.example.interfaces.WordsActivityApi;
+import com.example.Interfaces.WordsActivityApi;
 import com.wang.avi.AVLoadingIndicatorView;
 
 /**

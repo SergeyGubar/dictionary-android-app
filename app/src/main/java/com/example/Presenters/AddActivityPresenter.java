@@ -1,18 +1,12 @@
 package com.example.Presenters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.example.Helpers.FirebaseService;
 import com.example.android.app.Word;
-import com.example.interfaces.AddActivityApi;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.Interfaces.AddActivityApi;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
 
 
 /**

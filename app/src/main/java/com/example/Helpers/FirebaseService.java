@@ -1,10 +1,14 @@
 package com.example.Helpers;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.example.android.app.AuthActivity;
+import com.example.android.app.SettingsActivity;
 import com.example.android.app.Word;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +27,11 @@ import java.util.HashMap;
  */
 
 public class FirebaseService {
+
+    private FirebaseService() {
+
+    }
+
     public static FirebaseAuth getFirebaseAuthInstance() {
         return FirebaseAuth.getInstance();
     }
@@ -68,6 +77,12 @@ public class FirebaseService {
 
     public static DatabaseReference getWordReference() {
         return FirebaseService.getFirebaseDatabaseInstance().getReference().child("Words");
+    }
+
+    public static void logOut(Activity currActivity) {
+        FirebaseAuth.getInstance().signOut();
+        currActivity.startActivity(new Intent(currActivity, AuthActivity.class));
+        currActivity.finish();
     }
 
 }
