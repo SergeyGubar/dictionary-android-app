@@ -41,6 +41,7 @@ public class WordsActivityPresenter {
 
 
     public void displayWordsData() {
+        // FIXME: 8/18/2017 : remove this logic
         mDataBase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

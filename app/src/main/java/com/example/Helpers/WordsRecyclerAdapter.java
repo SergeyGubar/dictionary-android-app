@@ -1,6 +1,7 @@
 package com.example.Helpers;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,8 @@ import java.util.List;
  */
 
 public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdapter.WordsViewHolder> {
-    List<Word> listOfWords = new ArrayList<>(4);
+    Cursor mCursor;
+
     @Override
     public WordsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context ctx = parent.getContext();
@@ -32,38 +34,56 @@ public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdap
     @Override
     public void onBindViewHolder(WordsViewHolder holder, int position) {
         // FIXME: 8/10/2017 REMOVE DUMMY WORD
-        Word wordToBind = new Word("a", "b");
-
-        holder.rusWordTextView.setText(wordToBind.getRusWord());
-        holder.engWordTextView.setText(wordToBind.getEngWord());
+        if(!mCursor.moveToPosition(position)) {
+            return;
+        }
+        String engWord = mCursor.getString(mCursor.getColumnIndex(WordDbContract.WordEntry.COLUMN_ENG_WORD));
+        String rusWord = mCursor.getString(mCursor.getColumnIndex(WordDbContract.WordEntry.COLUMN_RUS_WORD));
+        long id = mCursor.getLong(mCursor.getColumnIndex(WordDbContract.WordEntry._ID));
+        holder.itemView.setTag(id);
+        holder.setWordText(engWord, rusWord);
     }
 
+    public void swapCursor(Cursor newCursor) {
+        if (mCursor != null) {
+            mCursor.close();
+        }
+        mCursor = newCursor;
+        if (mCursor != null) {
+            notifyDataSetChanged();
+        }
+    }
 
 
     @Override
     public int getItemCount() {
-        if(listOfWords == null) {
+        if (mCursor == null) {
             return 0;
         }
-        return listOfWords.size();
+        return mCursor.getCount();
     }
 
     public void addWord(Word wordToAdd) {
-        listOfWords.add(wordToAdd);
         notifyDataSetChanged();
     }
+
     public void removeWord(Word wordToRemove) {
-        listOfWords.remove(wordToRemove);
         notifyDataSetChanged();
     }
 
     class WordsViewHolder extends RecyclerView.ViewHolder {
-        TextView engWordTextView;
-        TextView rusWordTextView;
+        private TextView engWordTextView;
+        private TextView rusWordTextView;
+
         public WordsViewHolder(View itemView) {
             super(itemView);
             engWordTextView = (TextView) itemView.findViewById(R.id.default_text_view);
             rusWordTextView = (TextView) itemView.findViewById(R.id.russian_text_view);
+        }
+
+        public void setWordText(String eng, String translation) {
+            engWordTextView.setText(eng);
+            rusWordTextView.setText(translation);
         }
     }
 

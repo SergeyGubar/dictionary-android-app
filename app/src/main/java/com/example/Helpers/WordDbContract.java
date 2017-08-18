@@ -15,7 +15,8 @@ public class WordDbContract {
         public static final String TABLE_NAME = "words";
         public static final String COLUMN_CATEGORY = "wordCategory";
         public static final String COLUMN_ENG_WORD = "engWord";
-        public static final String COLUMN_RUS_WORD = "timestamp";
+        public static final String COLUMN_RUS_WORD = "rusWord";
+        public static final String COLUMN_TIMESTAMP = "timestamp";
     }
 
 }

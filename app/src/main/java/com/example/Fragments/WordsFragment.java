@@ -35,18 +35,6 @@ public class WordsFragment extends Fragment implements WordsActivityApi {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        /*View rootView = inflater.inflate(R.layout.words_fragment, container, false);
-        mListView = (ListView) rootView.findViewById(R.id.list);
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.words_recycler_view);
-        mAvi = (AVLoadingIndicatorView) rootView.findViewById(R.id.avi);
-        mAdapter = new WordAdapter(getActivity());
-        mListView.setAdapter(mAdapter);
-        mPresenter = new WordsActivityPresenter(getContext(), this);
-        mPresenter.startAnimation();
-        mPresenter.displayWordsData();
-        return rootView;*/
-
-        //
         View rootView = inflater.inflate(R.layout.words_fragment, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.words_recycler_view);
         mAvi = (AVLoadingIndicatorView) rootView.findViewById(R.id.avi);
