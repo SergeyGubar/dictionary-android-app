@@ -7,9 +7,7 @@ package com.example.android.app;
 public class Word {
     private String rusWord;
     private String engWord;
-    private int imageSource;
-    private int color;
-
+    private String category;
 
     public String getRusWord() {
         return rusWord;
@@ -19,20 +17,20 @@ public class Word {
         return engWord;
     }
 
-    public int getImageSource() {
-        return imageSource;
-    }
 
+    public String getCategory() {
+        return category;
+    }
 
     public Word(String rusWord, String engWord) {
         this.rusWord = rusWord;
         this.engWord = engWord;
     }
 
-    public Word(final String rusWord, final String engWord, final int imageSource) {
+    public Word(final String rusWord, final String engWord, final String category) {
         this.rusWord = rusWord;
         this.engWord = engWord;
-        this.imageSource = imageSource;
+        this.category = category;
     }
 
     @Override

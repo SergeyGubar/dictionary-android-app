@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.android.app.R;
 import com.example.android.app.Word;
 
+import java.nio.charset.CharacterCodingException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +21,16 @@ import java.util.List;
  */
 
 public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdapter.WordsViewHolder> {
-    Cursor mCursor;
+    private Cursor mCursor;
+
+
+    public WordsRecyclerAdapter(Cursor mCursor) {
+        this.mCursor = mCursor;
+    }
+
+    public WordsRecyclerAdapter() {
+
+    }
 
     @Override
     public WordsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -33,7 +43,6 @@ public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdap
 
     @Override
     public void onBindViewHolder(WordsViewHolder holder, int position) {
-        // FIXME: 8/10/2017 REMOVE DUMMY WORD
         if(!mCursor.moveToPosition(position)) {
             return;
         }

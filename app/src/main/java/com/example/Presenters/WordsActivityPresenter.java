@@ -1,15 +1,20 @@
 package com.example.Presenters;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 
 import com.example.Helpers.FirebaseService;
+import com.example.Helpers.WordsSqlService;
 import com.example.android.app.Word;
 import com.example.Interfaces.WordsActivityApi;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+
+import static com.example.Helpers.WordsSqlService.getWordsWithinCategory;
 
 /**
  * Created by Sergey on 7/6/2017.
@@ -18,13 +23,16 @@ import com.google.firebase.database.DatabaseReference;
 public class WordsActivityPresenter {
     private Context mCtx;
     private WordsActivityApi mApi;
-    private DatabaseReference mDataBase;
-
+    private WordsSqlService mService;
     public WordsActivityPresenter(Context ctx, WordsActivityApi mApi) {
         this.mCtx = ctx;
         this.mApi = mApi;
-        mDataBase = FirebaseService.getWordReference().
-                child(FirebaseService.getUserUid()).child(mApi.getActivityName());
+    }
+
+    public WordsActivityPresenter(Context mCtx, WordsActivityApi mApi, WordsSqlService mService) {
+        this.mCtx = mCtx;
+        this.mApi = mApi;
+        this.mService = mService;
     }
 
     public void startAnimation() {
@@ -39,40 +47,11 @@ public class WordsActivityPresenter {
         pdCanceller.postDelayed(progress, 3000);
     }
 
-
-    public void displayWordsData() {
-        // FIXME: 8/18/2017 : remove this logic
-        mDataBase.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Word word = FirebaseService.getWord(dataSnapshot);
-                mApi.getAdapter().addWord(word);
-                mApi.getLoadingIndicator().hide();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                mApi.getLoadingIndicator().show();
-                Word tempWord = FirebaseService.getWord(dataSnapshot);
-                mApi.getAdapter().removeWord(tempWord);
-                mApi.getLoadingIndicator().hide();
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+    public Cursor getWords() {
+        Cursor cursor = WordsSqlService.getWordsWithinCategory(mApi.getActivityName(), mService);
+        mApi.getLoadingIndicator().hide();
+        return cursor;
     }
+    
 
 }

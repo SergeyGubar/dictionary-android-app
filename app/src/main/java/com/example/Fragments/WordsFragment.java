@@ -9,12 +9,11 @@ import android.support.v7.widget.RecyclerView.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.example.Helpers.WordsRecyclerAdapter;
+import com.example.Helpers.WordsSqlService;
 import com.example.Presenters.WordsActivityPresenter;
 import com.example.android.app.R;
-import com.example.android.app.WordAdapter;
 import com.example.Interfaces.WordsActivityApi;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -26,8 +25,6 @@ public class WordsFragment extends Fragment implements WordsActivityApi {
     private final String TAG = "WordsFragment";
     private WordsActivityPresenter mPresenter;
     private AVLoadingIndicatorView mAvi;
-    private ListView mListView;
-    private WordAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private WordsRecyclerAdapter mWordsAdapter;
 
@@ -41,12 +38,17 @@ public class WordsFragment extends Fragment implements WordsActivityApi {
         LayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
-        mWordsAdapter = new WordsRecyclerAdapter();
+        mPresenter = new WordsActivityPresenter(getContext(), this, new WordsSqlService(getContext()));
+        mWordsAdapter = new WordsRecyclerAdapter(mPresenter.getWords());
         mRecyclerView.setAdapter(mWordsAdapter);
-        mPresenter = new WordsActivityPresenter(getContext(), this);
         mPresenter.startAnimation();
-        mPresenter.displayWordsData();
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mWordsAdapter.swapCursor(mPresenter.getWords());
     }
 
     @Override
