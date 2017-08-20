@@ -15,4 +15,6 @@ public interface SqlService {
 
     Cursor getWordsWithinCategory(String category);
 
+    boolean removeWord(long id);
+
 }

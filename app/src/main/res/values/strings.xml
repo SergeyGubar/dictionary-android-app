@@ -66,4 +66,7 @@
     <string name="registered_succesfully">Registered successfully!</string>
     <string name="registration_failed">Registration failed</string>
     <string name="empty_fields_warning">Fill in necessary fields</string>
+    <string name="delete_word">Delete Word</string>
+    <string name="edit_word">Edit Word</string>
+    <string name="word_deleted">Word was successfully deleted!</string>
 </resources>

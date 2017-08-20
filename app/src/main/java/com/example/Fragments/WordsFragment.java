@@ -38,8 +38,8 @@ public class WordsFragment extends Fragment implements WordsActivityApi {
         LayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
-        mPresenter = new WordsActivityPresenter(getContext(), this, new WordsSqlService(getContext()));
-        mWordsAdapter = new WordsRecyclerAdapter(mPresenter.getWords());
+        mPresenter = new WordsActivityPresenter(getContext(), this);
+        mWordsAdapter = new WordsRecyclerAdapter(mPresenter.getWords(), getContext(), mPresenter);
         mRecyclerView.setAdapter(mWordsAdapter);
         mPresenter.startAnimation();
         return rootView;
@@ -62,8 +62,7 @@ public class WordsFragment extends Fragment implements WordsActivityApi {
     }
 
     @Override
-    public WordsRecyclerAdapter getAdapter() {
-        return mWordsAdapter;
+    public WordsActivityPresenter getPresenter() {
+        return mPresenter;
     }
-
 }

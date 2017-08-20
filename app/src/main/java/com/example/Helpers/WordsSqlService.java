@@ -16,7 +16,7 @@ import com.example.android.app.Word;
  * Created by Sergey on 8/18/2017.
  */
 
-public class WordsSqlService extends SQLiteOpenHelper implements SqlService{
+public class WordsSqlService extends SQLiteOpenHelper implements SqlService {
 
     private static final String DATABASE_NAME = "words.db";
     private static final int DATABASE_VERSION = 1;
@@ -65,6 +65,13 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlService{
                 WordDbContract.WordEntry.COLUMN_TIMESTAMP
         );
 
+    }
+
+    @Override
+    public boolean removeWord(long id) {
+        return db.delete(WordDbContract.WordEntry.TABLE_NAME,
+                WordDbContract.WordEntry._ID + " = " + id,
+                null) > 0;
     }
 
 }

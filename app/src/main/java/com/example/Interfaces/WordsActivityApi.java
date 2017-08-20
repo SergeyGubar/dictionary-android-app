@@ -1,6 +1,7 @@
 package com.example.Interfaces;
 
 import com.example.Helpers.WordsRecyclerAdapter;
+import com.example.Presenters.WordsActivityPresenter;
 import com.wang.avi.AVLoadingIndicatorView;
 
 /**
@@ -14,6 +15,5 @@ public interface WordsActivityApi {
 
     AVLoadingIndicatorView getLoadingIndicator();
 
-    WordsRecyclerAdapter getAdapter();
-
+    WordsActivityPresenter getPresenter();
 }

@@ -5,15 +5,17 @@ import android.database.Cursor;
 import android.os.Handler;
 
 import com.example.Helpers.WordsSqlService;
+import com.example.Interfaces.MainActivityApi;
 import com.example.Interfaces.SqlService;
 import com.example.Interfaces.WordsActivityApi;
+import com.google.android.gms.common.api.Api;
 
 
 /**
  * Created by Sergey on 7/6/2017.
  */
 
-public class WordsActivityPresenter {
+public class WordsActivityPresenter implements MainActivityApi {
     private Context mCtx;
     private WordsActivityApi mApi;
     private SqlService mService;
@@ -21,12 +23,7 @@ public class WordsActivityPresenter {
     public WordsActivityPresenter(Context ctx, WordsActivityApi mApi) {
         this.mCtx = ctx;
         this.mApi = mApi;
-    }
-
-    public WordsActivityPresenter(Context mCtx, WordsActivityApi mApi, WordsSqlService mService) {
-        this.mCtx = mCtx;
-        this.mApi = mApi;
-        this.mService = mService;
+        mService = new WordsSqlService(mCtx);
     }
 
     public void startAnimation() {
@@ -46,6 +43,8 @@ public class WordsActivityPresenter {
         mApi.getLoadingIndicator().hide();
         return cursor;
     }
+
+
 
 
 }
