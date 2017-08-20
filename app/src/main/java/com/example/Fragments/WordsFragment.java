@@ -52,7 +52,7 @@ public class WordsFragment extends Fragment implements WordsActivityApi {
     }
 
     @Override
-    public String getActivityName() {
+    public String getCategoryName() {
         return getArguments().getString("ACTIVITY");
     }
 

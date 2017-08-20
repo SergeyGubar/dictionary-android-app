@@ -61,4 +61,9 @@
     <string name="send_reset_link">Send reset link</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="log_out">Log out</string>
+    <string name="word_added">Word added succesfully!</string>
+    <string name="word_not_added">Word wasn\'t added, try again</string>
+    <string name="registered_succesfully">Registered successfully!</string>
+    <string name="registration_failed">Registration failed</string>
+    <string name="empty_fields_warning">Fill in necessary fields</string>
 </resources>

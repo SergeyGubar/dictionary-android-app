@@ -1,15 +1,13 @@
 package com.example.Presenters;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.example.Helpers.FirebaseService;
 import com.example.Helpers.WordsSqlService;
+import com.example.Interfaces.SqlService;
+import com.example.android.app.R;
 import com.example.android.app.Word;
 import com.example.Interfaces.AddActivityApi;
-import com.google.firebase.database.DatabaseReference;
 
 
 /**
@@ -18,12 +16,12 @@ import com.google.firebase.database.DatabaseReference;
 
 public class AddActivityPresenter {
     private AddActivityApi mApi;
-    private Context ctx;
-    private WordsSqlService mService;
+    private SqlService mService;
+    private Context mCtx;
 
     public AddActivityPresenter(Context ctx, AddActivityApi api) {
         this.mApi = api;
-        this.ctx = ctx;
+        this.mCtx = ctx;
         mService = new WordsSqlService(ctx);
     }
 
@@ -32,13 +30,12 @@ public class AddActivityPresenter {
         String rus = mApi.getRusText();
         String eng = mApi.getEngText();
         String category = mApi.getSelectedSpinnerItem().toString();
-        Log.wtf("HUI", category);
         if (!rus.equals("") && !eng.equals("")) {
             Word word = new Word(rus, eng, category);
-            WordsSqlService.addWord(word, mService);
-            Toast.makeText(ctx, "YA EBU SOBAK", Toast.LENGTH_SHORT).show();
+            mService.addWord(word);
+            Toast.makeText(mCtx, mCtx.getString(R.string.word_added), Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(ctx, "Empty word cannot be added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mCtx, mCtx.getString(R.string.word_not_added), Toast.LENGTH_SHORT).show();
         }
 
         mApi.resetText();
@@ -47,8 +44,6 @@ public class AddActivityPresenter {
     public void setAdapter() {
         mApi.setSpinnerAdapter();
     }
-
-
 
 
 }

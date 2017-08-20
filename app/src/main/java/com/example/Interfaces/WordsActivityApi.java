@@ -10,7 +10,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 public interface WordsActivityApi {
 
 
-    String getActivityName();
+    String getCategoryName();
 
     AVLoadingIndicatorView getLoadingIndicator();
 

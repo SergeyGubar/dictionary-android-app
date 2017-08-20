@@ -22,15 +22,15 @@ import com.google.firebase.auth.FirebaseAuth;
 public class RegisterActivityPresenter implements Registrable {
 
     private RegisterActivityApi mApi;
-    private Context ctx;
-    private ProgressDialog progressDialog;
+    private Context mCtx;
+    private ProgressDialog mProgressDialog;
     private FirebaseAuth mAuth;
 
     public RegisterActivityPresenter(RegisterActivityApi mApi, Context context) {
         this.mApi = mApi;
-        this.ctx = context;
+        this.mCtx = context;
         mAuth = FirebaseAuth.getInstance();
-        progressDialog = new ProgressDialog(context);
+        mProgressDialog = new ProgressDialog(context);
     }
 
     public void signUp() {
@@ -38,29 +38,31 @@ public class RegisterActivityPresenter implements Registrable {
         String password = mApi.getPasswordText();
 
         if(!email.equals("") && !password.equals("")) {
-            progressDialog.setTitle(R.string.register_process_text);;
-            progressDialog.setMessage("Just a moment");
-            progressDialog.show();
+            mProgressDialog.setTitle(R.string.register_process_text);;
+            mProgressDialog.setMessage("Just a moment");
+            mProgressDialog.show();
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
                     new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(ctx, "Registered succesfully!", Toast.LENGTH_SHORT).show();
-                                progressDialog.hide();
+                                Toast.makeText(mCtx, mCtx.getString(R.string.registered_succesfully), Toast.LENGTH_SHORT).show();
+                                mProgressDialog.hide();
                                 mApi.getActivity().finish();
-                                ctx.startActivity(new Intent(ctx, AuthActivity.class));
+                                mCtx.startActivity(new Intent(mCtx, AuthActivity.class));
                             } else {
-                                Toast.makeText(ctx, "Something went wrong, try again",
+                                Toast.makeText(mCtx, mCtx.getString(R.string.registration_failed),
                                         Toast.LENGTH_SHORT).show();
-                                progressDialog.hide();
+                                mProgressDialog.hide();
                             }
                         }
                     }
             );
         } else {
-            Toast.makeText(ctx, "Fill in necessary fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mCtx, mCtx.getString(R.string.empty_fields_warning), Toast.LENGTH_SHORT).show();
         }
 
     }
+
+
 }
