@@ -16,11 +16,14 @@
 package com.example.android.app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,8 +79,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi {
             case R.id.log_out_action:
                 FirebaseService.logOut(this);
                 break;
+            case R.id.new_category_menu_item:
+                presenter.showNewCategoryAddDialog();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public SharedPreferences getSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(this);
     }
 }

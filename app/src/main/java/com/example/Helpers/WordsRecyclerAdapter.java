@@ -2,12 +2,17 @@ package com.example.Helpers;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.print.PrintAttributes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +39,6 @@ public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdap
     private Context mCtx;
     private SqlService mService;
     private WordsActivityPresenter mPresenter;
-
 
 
     public WordsRecyclerAdapter() {
@@ -69,16 +73,16 @@ public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdap
 
     @Override
     public void onBindViewHolder(WordsViewHolder holder, int position) {
-        if(!mCursor.moveToPosition(position)) {
+        if (!mCursor.moveToPosition(position)) {
             return;
         }
-        String engWord = mCursor.getString(mCursor.getColumnIndex(WordDbContract.WordEntry.COLUMN_ENG_WORD));
-        String rusWord = mCursor.getString(mCursor.getColumnIndex(WordDbContract.WordEntry.COLUMN_RUS_WORD));
+        final String engWord = mCursor.getString(mCursor.getColumnIndex(WordDbContract.WordEntry.COLUMN_ENG_WORD));
+        final String rusWord = mCursor.getString(mCursor.getColumnIndex(WordDbContract.WordEntry.COLUMN_RUS_WORD));
         final long id = mCursor.getLong(mCursor.getColumnIndex(WordDbContract.WordEntry._ID));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mCtx);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(mCtx);
                 View view = LayoutInflater.from(mCtx).inflate(R.layout.word_dialog, null);
                 final Button deleteButton = (Button) view.findViewById(R.id.delete_word_button);
                 final Button editButton = (Button) view.findViewById(R.id.edit_word_button);
@@ -98,8 +102,34 @@ public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdap
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(mCtx, "Feature is not implemented yet :(", Toast.LENGTH_SHORT).show();
+                        //SORRY FOR THIS :(
+                        final View editDialogView = LayoutInflater.from(mCtx).inflate(R.layout.word_edit_dialog, null);
+                        final EditText newEngWordTextView = (EditText) editDialogView.findViewById(R.id.new_word_eng_edit_text);
+                        final EditText newRusWordTextView = (EditText) editDialogView.findViewById(R.id.new_word_rus_edit_text);
+                        Button editBtn = (Button) editDialogView.findViewById(R.id.edit_btn);
+
+                        newEngWordTextView.setText(engWord);
+                        newRusWordTextView.setText(rusWord);
+                        builder.setView(editDialogView);
+                        final AlertDialog editDialog = builder.create();
+
+                        editBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                String newEngWord = newEngWordTextView.getText().toString();
+                                String newRusWord = newRusWordTextView.getText().toString();
+                                mService.updateWord(engWord, rusWord, newEngWord, newRusWord);
+                                newRusWordTextView.clearFocus();
+                                Toast.makeText(mCtx, R.string.word_edited_succesfully, Toast.LENGTH_SHORT).show();
+                                swapCursor(mPresenter.getWords());
+                                editDialog.hide();
+
+                            }
+                        });
+
                         dialog.hide();
+                        editDialog.show();
                     }
                 });
                 dialog.show();
@@ -138,7 +168,6 @@ public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdap
             engWordTextView = (TextView) itemView.findViewById(R.id.default_text_view);
             rusWordTextView = (TextView) itemView.findViewById(R.id.russian_text_view);
         }
-
 
 
         public void setWordText(String eng, String translation) {

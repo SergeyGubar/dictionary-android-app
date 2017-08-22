@@ -15,15 +15,7 @@
         android:orientation="vertical"
         android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/russian_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingBottom="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:paddingLeft="10dp"
-            tools:text="Один" />
+
 
         <TextView
             android:id="@+id/default_text_view"
@@ -34,6 +26,17 @@
             android:paddingBottom="16dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
             tools:text="One" />
+
+        <TextView
+            android:id="@+id/russian_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingLeft="10dp"
+            tools:text="Один" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

@@ -1,5 +1,7 @@
 package com.example.android.app;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,17 +18,22 @@ import static android.R.attr.fragment;
  */
 
 public class WordsFragmentAdapter extends FragmentPagerAdapter {
-    private FirebaseAuth mAuth;
-    private final String UID = "UID";
     private final String KEY = "ACTIVITY";
     private final String[] NAMES = {"Colors", "Numbers", "Stuff", "Family"};
+    private Context mCtx;
 
     public WordsFragmentAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
     }
 
+    public WordsFragmentAdapter(FragmentManager fragmentManager, Context ctx) {
+        super(fragmentManager);
+        mCtx = ctx;
+    }
+
     @Override
     public Fragment getItem(int position) {
+
         WordsFragment fragment = new WordsFragment();
         Bundle b = new Bundle();
         switch (position) {
@@ -54,7 +61,7 @@ public class WordsFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 2;
     }
 
     @Override

@@ -19,8 +19,11 @@ import com.example.android.app.Word;
 public class WordsSqlService extends SQLiteOpenHelper implements SqlService {
 
     private static final String DATABASE_NAME = "words.db";
+
+
+
     private static final int DATABASE_VERSION = 1;
-    private static SQLiteDatabase db;
+    private SQLiteDatabase db;
 
     public WordsSqlService(Context ctx) {
         super(ctx, DATABASE_NAME, null, DATABASE_VERSION);
@@ -64,11 +67,28 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlService {
                 null,
                 WordDbContract.WordEntry.COLUMN_TIMESTAMP
         );
+    }
+
+
+    @Override
+    public void updateWord(String oldEng, String oldRus, String newEng, String newRus) {
+        db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(WordDbContract.WordEntry.COLUMN_ENG_WORD, newEng);
+        cv.put(WordDbContract.WordEntry.COLUMN_RUS_WORD, newRus);
+
+        db.update(WordDbContract.WordEntry.TABLE_NAME,
+                cv,
+                WordDbContract.WordEntry.COLUMN_ENG_WORD + " = " + "\"" + oldEng + "\""  + " AND " +
+                        WordDbContract.WordEntry.COLUMN_RUS_WORD + " = " + "\"" + oldRus + "\"" ,
+                null
+                );
 
     }
 
     @Override
     public boolean removeWord(long id) {
+        db = getWritableDatabase();
         return db.delete(WordDbContract.WordEntry.TABLE_NAME,
                 WordDbContract.WordEntry._ID + " = " + id,
                 null) > 0;

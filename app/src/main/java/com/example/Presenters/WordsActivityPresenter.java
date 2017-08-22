@@ -44,7 +44,4 @@ public class WordsActivityPresenter implements MainActivityApi {
         return cursor;
     }
 
-
-
-
 }

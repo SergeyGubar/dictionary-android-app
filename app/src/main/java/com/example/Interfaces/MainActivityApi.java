@@ -1,5 +1,6 @@
 package com.example.Interfaces;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 
 /**
@@ -7,4 +8,7 @@ import android.database.Cursor;
  */
 
 public interface MainActivityApi {
+
+    SharedPreferences getSharedPreferences();
+
 }

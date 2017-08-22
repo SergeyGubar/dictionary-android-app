@@ -17,4 +17,6 @@ public interface SqlService {
 
     boolean removeWord(long id);
 
+    void updateWord(String oldEng, String oldRus, String newEng, String newRus);
+
 }

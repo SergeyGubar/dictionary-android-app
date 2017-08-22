@@ -69,4 +69,8 @@
     <string name="delete_word">Delete Word</string>
     <string name="edit_word">Edit Word</string>
     <string name="word_deleted">Word was successfully deleted!</string>
+    <string name="edit_btn_value">Edit</string>
+    <string name="word_edited_succesfully">Word was edited succesfilly!</string>
+    <string name="add_new_category">Add</string>
+    <string name="new_category_added">Category succesfully added!</string>
 </resources>
