@@ -11,4 +11,6 @@ public interface MainActivityApi {
 
     SharedPreferences getSharedPreferences();
 
+    void updateAdapter();
+
 }

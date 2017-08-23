@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.view.Menu;
@@ -36,28 +35,26 @@ import com.example.Interfaces.MainActivityApi;
 
 public class MainActivity extends AppCompatActivity implements MainActivityApi {
 
-    private final String KEY = "activity";
-    private final String USERID = "UID";
     private final String TAG = "MainActivity";
-    private MainActivityPresenter presenter;
-
+    private MainActivityPresenter mPresenter;
+    ViewPager mViewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.words_main_pager);
-        WordsFragmentAdapter adapter = new WordsFragmentAdapter(getSupportFragmentManager());
-        presenter = new MainActivityPresenter(this, this);
-        viewPager.setAdapter(adapter);
+        mViewPager = (ViewPager) findViewById(R.id.words_main_pager);
+        WordsFragmentAdapter adapter = new WordsFragmentAdapter(getSupportFragmentManager(), this);
+        mPresenter = new MainActivityPresenter(this, this);
+        mViewPager.setAdapter(adapter);
 
         TabLayout tabs = (TabLayout) findViewById(R.id.sliding_tabs);
 
-        tabs.setupWithViewPager(viewPager);
+        tabs.setupWithViewPager(mViewPager);
         FloatingActionButton btn = (FloatingActionButton) findViewById(R.id.float_btn);
         btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.startAddActivity();
+                mPresenter.startAddActivity();
             }
         });
 
@@ -80,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi {
                 FirebaseService.logOut(this);
                 break;
             case R.id.new_category_menu_item:
-                presenter.showNewCategoryAddDialog();
+                mPresenter.showNewCategoryAddDialog();
         }
 
         return super.onOptionsItemSelected(item);
@@ -89,5 +86,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi {
     @Override
     public SharedPreferences getSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    @Override
+    public void updateAdapter() {
+        mViewPager.setAdapter(new WordsFragmentAdapter(getSupportFragmentManager(), this));
     }
 }

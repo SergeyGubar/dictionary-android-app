@@ -15,7 +15,7 @@ import com.google.android.gms.common.api.Api;
  * Created by Sergey on 7/6/2017.
  */
 
-public class WordsActivityPresenter implements MainActivityApi {
+public class WordsActivityPresenter {
     private Context mCtx;
     private WordsActivityApi mApi;
     private SqlService mService;

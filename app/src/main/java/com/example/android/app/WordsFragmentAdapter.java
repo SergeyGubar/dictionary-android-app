@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.Fragments.WordsFragment;
 import com.example.Helpers.FirebaseService;
+import com.example.Helpers.PreferencesKeys;
+import com.example.Interfaces.MainActivityApi;
 import com.google.firebase.auth.FirebaseAuth;
 
 import static android.R.attr.fragment;
@@ -19,24 +21,26 @@ import static android.R.attr.fragment;
 
 public class WordsFragmentAdapter extends FragmentPagerAdapter {
     private final String KEY = "ACTIVITY";
-    private final String[] NAMES = {"Colors", "Numbers", "Stuff", "Family"};
-    private Context mCtx;
+    private MainActivityApi mApi;
+    private SharedPreferences mPreferences;
 
     public WordsFragmentAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
     }
 
-    public WordsFragmentAdapter(FragmentManager fragmentManager, Context ctx) {
+    public WordsFragmentAdapter(FragmentManager fragmentManager, MainActivityApi api) {
         super(fragmentManager);
-        mCtx = ctx;
+        mApi = api;
+        mPreferences = mApi.getSharedPreferences();
     }
+
 
     @Override
     public Fragment getItem(int position) {
 
         WordsFragment fragment = new WordsFragment();
         Bundle b = new Bundle();
-        switch (position) {
+        /*switch (position) {
             case 0:
                 b.putString(KEY, "Colors");
                 fragment.setArguments(b);
@@ -56,17 +60,21 @@ public class WordsFragmentAdapter extends FragmentPagerAdapter {
             default:
                 return fragment;
 
-        }
+        }*/
+        String categoryName = mPreferences.getString(String.valueOf(position), "chto-to ne tak");
+        b.putString(KEY, categoryName);
+        fragment.setArguments(b);
+        return fragment;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return mPreferences.getInt(PreferencesKeys.getCategoriesNumberKey(), 0);
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         // Generate title based on item position
-        return NAMES[position];
+        return mPreferences.getString(String.valueOf(position), "Top");
     }
 }

@@ -36,30 +36,33 @@ public class MainActivityPresenter {
     public void showNewCategoryAddDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mCtx);
         View inflatedView = LayoutInflater.from(mCtx).inflate(R.layout.category_new_dialog, null);
-        EditText newCategoryNameEditText = (EditText) inflatedView.findViewById(R.id.new_category_edit_text);
+        final EditText newCategoryNameEditText = (EditText) inflatedView.findViewById(R.id.new_category_edit_text);
         Button addButton = (Button) inflatedView.findViewById(R.id.add_new_category_button);
         builder.setView(inflatedView);
         final AlertDialog newCategoryDialog = builder.create();
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 8/22/2017 : Here goes some weird shit, finish it
                 SharedPreferences preferences = mApi.getSharedPreferences();
                 SharedPreferences.Editor editor = preferences.edit();
-
+                String categoryName = newCategoryNameEditText.getText().toString();
                 int numberOfCategories = 0;
                 if(preferences.contains(PreferencesKeys.getCategoriesNumberKey())) {
                     numberOfCategories = preferences.getInt(PreferencesKeys.getCategoriesNumberKey(), 0);
                 }
-
-
                 numberOfCategories++;
-                editor.putString(PreferencesKeys.getCategoriesNumberKey(), String.valueOf(numberOfCategories));
+                editor.putString(String.valueOf(numberOfCategories), categoryName);
 
+                editor.putInt(PreferencesKeys.getCategoriesNumberKey(), numberOfCategories);
 
-
-                Toast.makeText(mCtx, R.string.new_category_added, Toast.LENGTH_SHORT).show();
-                newCategoryDialog.hide();
+                //TODO fix adding bug (categories are added wrong)
+                if(editor.commit()) {
+                    Toast.makeText(mCtx, R.string.new_category_added, Toast.LENGTH_SHORT).show();
+                    mApi.updateAdapter();
+                    newCategoryDialog.hide();
+                } else {
+                    Toast.makeText(mCtx, R.string.something_went_wrong, Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
