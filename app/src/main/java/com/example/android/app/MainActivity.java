@@ -15,6 +15,7 @@
  */
 package com.example.android.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -83,13 +84,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public SharedPreferences getSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(this);
-    }
 
     @Override
     public void updateAdapter() {
         mViewPager.setAdapter(new WordsFragmentAdapter(getSupportFragmentManager(), this));
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.Helpers.PreferencesKeys;
+import com.example.Helpers.WordsSqlService;
+import com.example.Interfaces.SqlCategories;
 import com.example.android.app.AddActivity;
 import com.example.Interfaces.MainActivityApi;
 import com.example.android.app.R;
@@ -22,6 +24,7 @@ import com.example.android.app.R;
 public class MainActivityPresenter {
     private Context mCtx;
     private MainActivityApi mApi;
+    private SqlCategories mService;
 
     public MainActivityPresenter(Context mCtx, MainActivityApi mApi) {
         this.mCtx = mCtx;
@@ -43,26 +46,19 @@ public class MainActivityPresenter {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences preferences = mApi.getSharedPreferences();
-                SharedPreferences.Editor editor = preferences.edit();
+
+
                 String categoryName = newCategoryNameEditText.getText().toString();
-                int numberOfCategories = 0;
-                if(preferences.contains(PreferencesKeys.getCategoriesNumberKey())) {
-                    numberOfCategories = preferences.getInt(PreferencesKeys.getCategoriesNumberKey(), 0);
-                }
-                numberOfCategories++;
-                editor.putString(String.valueOf(numberOfCategories), categoryName);
-
-                editor.putInt(PreferencesKeys.getCategoriesNumberKey(), numberOfCategories);
-
-                //TODO fix adding bug (categories are added wrong)
-                if(editor.commit()) {
-                    Toast.makeText(mCtx, R.string.new_category_added, Toast.LENGTH_SHORT).show();
+                if(!categoryName.isEmpty()) {
+                    mService = new WordsSqlService(mCtx);
+                    mService.addCategory(categoryName);
                     mApi.updateAdapter();
+                    Toast.makeText(mCtx, R.string.new_category_added, Toast.LENGTH_SHORT).show();
                     newCategoryDialog.hide();
                 } else {
-                    Toast.makeText(mCtx, R.string.something_went_wrong, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mCtx, R.string.must_enter_category_name, Toast.LENGTH_SHORT).show();
                 }
+
 
             }
         });

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.Helpers.WordsSqlService;
-import com.example.Interfaces.SqlService;
+import com.example.Interfaces.SqlWords;
 import com.example.android.app.R;
 import com.example.android.app.Word;
 import com.example.Interfaces.AddActivityApi;
@@ -16,7 +16,7 @@ import com.example.Interfaces.AddActivityApi;
 
 public class AddActivityPresenter {
     private AddActivityApi mApi;
-    private SqlService mService;
+    private SqlWords mService;
     private Context mCtx;
 
     public AddActivityPresenter(Context ctx, AddActivityApi api) {

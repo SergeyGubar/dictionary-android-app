@@ -2,33 +2,19 @@ package com.example.Helpers;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.print.PrintAttributes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.Interfaces.SqlService;
+import com.example.Interfaces.SqlWords;
 import com.example.Presenters.WordsActivityPresenter;
-import com.example.android.app.MainActivity;
 import com.example.android.app.R;
-import com.example.android.app.Word;
-import com.google.gson.InstanceCreator;
-
-import java.nio.charset.CharacterCodingException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import static com.google.gson.internal.UnsafeAllocator.create;
 
 /**
  * Created by Sergey on 8/10/2017.
@@ -37,7 +23,7 @@ import static com.google.gson.internal.UnsafeAllocator.create;
 public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdapter.WordsViewHolder> {
     private Cursor mCursor;
     private Context mCtx;
-    private SqlService mService;
+    private SqlWords mService;
     private WordsActivityPresenter mPresenter;
 
 

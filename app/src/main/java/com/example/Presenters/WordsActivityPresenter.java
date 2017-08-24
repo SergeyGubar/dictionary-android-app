@@ -5,10 +5,8 @@ import android.database.Cursor;
 import android.os.Handler;
 
 import com.example.Helpers.WordsSqlService;
-import com.example.Interfaces.MainActivityApi;
-import com.example.Interfaces.SqlService;
+import com.example.Interfaces.SqlWords;
 import com.example.Interfaces.WordsActivityApi;
-import com.google.android.gms.common.api.Api;
 
 
 /**
@@ -18,7 +16,7 @@ import com.google.android.gms.common.api.Api;
 public class WordsActivityPresenter {
     private Context mCtx;
     private WordsActivityApi mApi;
-    private SqlService mService;
+    private SqlWords mService;
 
     public WordsActivityPresenter(Context ctx, WordsActivityApi mApi) {
         this.mCtx = ctx;

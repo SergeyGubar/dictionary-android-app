@@ -10,16 +10,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.Helpers.WordsSqlService;
+import com.example.Interfaces.SqlCategories;
 import com.example.Presenters.AddActivityPresenter;
 import com.example.Interfaces.AddActivityApi;
 
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
+
 public class AddActivity extends AppCompatActivity implements AddActivityApi {
     private final String TAG = "AddActivity";
-    private Spinner spinner;
-    private Button addButton;
-    private EditText engWordEdit;
-    private EditText rusWordEdit;
-    private AddActivityPresenter presenter;
+    private Spinner mSpinner;
+    private Button mAddButton;
+    private EditText mEngWordEditText;
+    private EditText mRusWordEditText;
+    private AddActivityPresenter mPresenter;
+    private SqlCategories mService;
 
 
     @Override
@@ -27,17 +34,18 @@ public class AddActivity extends AppCompatActivity implements AddActivityApi {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        addButton = (Button) findViewById(R.id.button_add);
-        spinner = (Spinner) findViewById(R.id.spinner);
-        engWordEdit = (EditText) findViewById(R.id.edit_text_eng);
-        rusWordEdit = (EditText) findViewById(R.id.edit_text_rus);
-        presenter = new AddActivityPresenter(this, this);
+        mAddButton = (Button) findViewById(R.id.button_add);
+        mSpinner = (Spinner) findViewById(R.id.spinner);
+        mEngWordEditText = (EditText) findViewById(R.id.edit_text_eng);
+        mRusWordEditText = (EditText) findViewById(R.id.edit_text_rus);
+        mPresenter = new AddActivityPresenter(this, this);
+        mService = new WordsSqlService(this);
 
-        presenter.setAdapter();
-        addButton.setOnClickListener(new View.OnClickListener() {
+        mPresenter.setAdapter();
+        mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.addWord();
+                mPresenter.addWord();
             }
         });
     }
@@ -53,30 +61,32 @@ public class AddActivity extends AppCompatActivity implements AddActivityApi {
 
     @Override
     public String getEngText() {
-        return engWordEdit.getText().toString().trim();
+        return mEngWordEditText.getText().toString().trim();
     }
 
     @Override
     public String getRusText() {
-        return rusWordEdit.getText().toString().trim();
+        return mRusWordEditText.getText().toString().trim();
     }
 
     @Override
     public Object getSelectedSpinnerItem() {
-        return spinner.getSelectedItem();
+        return mSpinner.getSelectedItem();
     }
 
     @Override
     public void resetText() {
-        rusWordEdit.setText("");
-        engWordEdit.setText("");
+        mRusWordEditText.setText("");
+        mEngWordEditText.setText("");
     }
 
     @Override
     public void setSpinnerAdapter() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.activities_names, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        List<String> categoriesNames = mService.getCategoriesNames();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
+                categoriesNames);
+
+        mSpinner.setAdapter(adapter);
     }
 }
