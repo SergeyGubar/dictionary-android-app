@@ -13,21 +13,21 @@ import com.example.Interfaces.ForgotPasswordApi;
 import com.example.Interfaces.ResetPassword;
 
 public class ForgotPasswordActivity extends AppCompatActivity implements ForgotPasswordApi {
-    private EditText emailEditText;
-    private Button resetButton;
-    private ResetPassword presenter;
+    private EditText mEmailEditText;
+    private Button mResetButton;
+    private ResetPassword mPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        emailEditText = (EditText) findViewById(R.id.forgot_email_edit_text);
-        resetButton = (Button) findViewById(R.id.reset_password_btn);
-        presenter = new ForgotPasswordPresenter(this, this);
-        resetButton.setOnClickListener(new View.OnClickListener() {
+        mEmailEditText = (EditText) findViewById(R.id.forgot_email_edit_text);
+        mResetButton = (Button) findViewById(R.id.reset_password_btn);
+        mPresenter = new ForgotPasswordPresenter(this, this);
+        mResetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.sendResetPasswordLink();
+                mPresenter.sendResetPasswordLink();
             }
         });
 
@@ -35,12 +35,12 @@ public class ForgotPasswordActivity extends AppCompatActivity implements ForgotP
 
     @Override
     public String getEmailText() {
-        return emailEditText.getText().toString();
+        return mEmailEditText.getText().toString();
     }
 
     @Override
     public void resetEmailText() {
-        emailEditText.setText("");
+        mEmailEditText.setText("");
     }
 
     @Override

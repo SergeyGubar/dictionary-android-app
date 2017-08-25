@@ -80,7 +80,6 @@ public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdap
                     public void onClick(View v) {
                         mService.removeWord(id);
                         Toast.makeText(mCtx, R.string.word_deleted, Toast.LENGTH_SHORT).show();
-                        // FIXME: 8/20/2017 etot govnokod nado bi ubrat
                         swapCursor(mPresenter.getWords());
                         dialog.hide();
                     }

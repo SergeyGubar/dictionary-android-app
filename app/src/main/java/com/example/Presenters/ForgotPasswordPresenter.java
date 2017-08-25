@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.example.Interfaces.ForgotPasswordApi;
 import com.example.Interfaces.ResetPassword;
+import com.example.android.app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,12 +16,12 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 
 public class ForgotPasswordPresenter implements ResetPassword {
-    private Context ctx;
+    private Context mCtx;
     private ForgotPasswordApi mApi;
 
 
     public ForgotPasswordPresenter(Context mCtx, ForgotPasswordApi mApi) {
-        this.ctx = mCtx;
+        this.mCtx = mCtx;
         this.mApi = mApi;
     }
 
@@ -32,18 +33,17 @@ public class ForgotPasswordPresenter implements ResetPassword {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()) {
-                        Toast.makeText(ctx, "Email sent", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mCtx, R.string.email_sent, Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(ctx, "Something went wrong :(", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mCtx, R.string.something_went_wrong, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } else {
-            Toast.makeText(ctx, "Enter your email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mCtx, R.string.enter_valid_email, Toast.LENGTH_SHORT).show();
         }
 
         mApi.resetEmailText();
-
 
     }
 }

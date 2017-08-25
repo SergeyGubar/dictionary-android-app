@@ -75,4 +75,6 @@
     <string name="new_category_added">Category succesfully added!</string>
     <string name="something_went_wrong">Something went wrong, please try again</string>
     <string name="must_enter_category_name">You must enter category name</string>
+    <string name="email_sent">Email was sent</string>
+    <string name="enter_valid_email" />
 </resources>

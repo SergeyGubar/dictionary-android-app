@@ -12,41 +12,41 @@ import com.example.Presenters.AuthActivityPresenter;
 import com.example.Interfaces.AuthActivityApi;
 
 public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
-    private EditText emailText;
-    private EditText passwordText;
-    private Button loginButton;
-    private AuthActivityPresenter presenter;
-    private TextView registerText;
+    private EditText mEmailEditText;
+    private EditText mPasswordEditText;
+    private Button mLoginButton;
+    private AuthActivityPresenter mPresenter;
+    private TextView mRegisterText;
     private TextView forgotPasswordTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
-        emailText = (EditText) findViewById(R.id.email_edit_text);
-        passwordText = (EditText) findViewById(R.id.password_edit_text);
-        loginButton = (Button) findViewById(R.id.login_btn);
-        registerText = (TextView) findViewById(R.id.register_text_view);
-        presenter = new AuthActivityPresenter(this, this);
+        mEmailEditText = (EditText) findViewById(R.id.email_edit_text);
+        mPasswordEditText = (EditText) findViewById(R.id.password_edit_text);
+        mLoginButton = (Button) findViewById(R.id.login_btn);
+        mRegisterText = (TextView) findViewById(R.id.register_text_view);
+        mPresenter = new AuthActivityPresenter(this, this);
         forgotPasswordTextView = (TextView) findViewById(R.id.forgot_password_text_view);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.signIn();
+                mPresenter.signIn();
             }
         });
-        registerText.setOnClickListener(new View.OnClickListener() {
+        mRegisterText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.signUpActivityStart();
+                mPresenter.signUpActivityStart();
             }
         });
 
         forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.forgotPassActivityStart();
+                mPresenter.forgotPassActivityStart();
             }
         });
 
@@ -54,23 +54,23 @@ public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
 
 
     /**
-     * These two methods are used for Firebase interaction, can be removed, if
+     * These two android callbacks are used for Firebase interaction, can be removed, if
      * other database is chosen (implement Authorized interface)
      */
     @Override
     public void onStart() {
         super.onStart();
-        presenter.addFirebaseListener();
+        mPresenter.addFirebaseListener();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        presenter.removeFirebaseListener();
+        mPresenter.removeFirebaseListener();
     }
 
     /**
-     * Api methods for interaction of presenter and activity
+     * Api methods for interaction of mPresenter and activity
      */
     @Override
     public Activity getActivity() {
@@ -79,21 +79,19 @@ public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
 
     @Override
     public String getEmailText() {
-        return emailText.getText().toString();
+        return mEmailEditText.getText().toString();
     }
 
     @Override
     public String getPasswordText() {
-        return passwordText.getText().toString();
+        return mPasswordEditText.getText().toString();
     }
 
     @Override
     public void resetFields() {
-        emailText.setText("");
-        passwordText.setText("");
+        mEmailEditText.setText("");
+        mPasswordEditText.setText("");
     }
-
-
 
 
 }
