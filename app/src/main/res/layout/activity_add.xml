@@ -5,34 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.android.app.AddActivity"
-    android:padding="16dp">
-    <EditText
+    tools:context="com.example.android.app.AddActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/english_word"
-        android:id="@+id/edit_text_eng"
-        />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary_color"
+        app:elevation="0dp"
+        app:theme="@style/ToolbarColoredBackArrow"
+        app:titleTextColor="@android:color/white"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <EditText
-        android:id="@+id/edit_text_rus"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/russian_word"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/english_word"
+            android:id="@+id/edit_text_eng"
+            />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp" />
+        <EditText
+            android:id="@+id/edit_text_rus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/russian_word"
+            />
 
-    <Button
-        android:id="@+id/button_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/add_word"
-        />
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/button_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/add_word"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

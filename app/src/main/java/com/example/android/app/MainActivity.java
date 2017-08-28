@@ -24,6 +24,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi {
 
     private final String TAG = "MainActivity";
     private MainActivityPresenter mPresenter;
-    ViewPager mViewPager;
+    private ViewPager mViewPager;
+    private Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +49,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi {
         WordsFragmentAdapter adapter = new WordsFragmentAdapter(getSupportFragmentManager(), this);
         mPresenter = new MainActivityPresenter(this, this);
         mViewPager.setAdapter(adapter);
-
         TabLayout tabs = (TabLayout) findViewById(R.id.sliding_tabs);
-
         tabs.setupWithViewPager(mViewPager);
+        mToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(mToolbar);
+
         FloatingActionButton btn = (FloatingActionButton) findViewById(R.id.float_btn);
         btn.setOnClickListener(new OnClickListener() {
             @Override
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi {
     public void updateAdapter() {
         mViewPager.setAdapter(new WordsFragmentAdapter(getSupportFragmentManager(), this));
     }
+
 
     @Override
     public Context getContext() {

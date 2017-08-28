@@ -3,6 +3,7 @@ package com.example.android.app;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -27,12 +28,15 @@ public class AddActivity extends AppCompatActivity implements AddActivityApi {
     private EditText mRusWordEditText;
     private AddActivityPresenter mPresenter;
     private SqlCategories mService;
+    private Toolbar mToolBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+        mToolBar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mAddButton = (Button) findViewById(R.id.button_add);
         mSpinner = (Spinner) findViewById(R.id.spinner);
