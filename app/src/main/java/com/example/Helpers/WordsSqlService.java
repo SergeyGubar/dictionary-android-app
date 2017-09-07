@@ -42,7 +42,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
         final String categoryTableSqlQuery = "CREATE TABLE " +
                 CategoryDbContract.TABLE_NAME + " (" +
                 CategoryDbContract._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                CategoryDbContract.CATEGORY_NAME + " TEXT NOT NULL, " +
+                CategoryDbContract.COLUMN_CATEGORY_NAME + " TEXT NOT NULL, " +
                 CategoryDbContract.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP " +
                 "); ";
         db.execSQL(categoryTableSqlQuery);
@@ -51,7 +51,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + WordDbContract.WordEntry.TABLE_NAME);
-        final String sqlQuery = "DROP TABLE IF EXISTS " + CategoryDbContract.CATEGORY_NAME;
+        final String sqlQuery = "DROP TABLE IF EXISTS " + CategoryDbContract.COLUMN_CATEGORY_NAME;
         db.execSQL(sqlQuery);
         onCreate(db);
     }
@@ -118,7 +118,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
     @Override
     public String getCategoryName(int position, Cursor cursor) {
         if(cursor.moveToPosition(position)) {
-            return cursor.getString(cursor.getColumnIndex(CategoryDbContract.CATEGORY_NAME));
+            return cursor.getString(cursor.getColumnIndex(CategoryDbContract.COLUMN_CATEGORY_NAME));
         } else {
             return null;
         }
@@ -128,7 +128,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
     public void addCategory(String categoryName) {
         db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(CategoryDbContract.CATEGORY_NAME, categoryName);
+        cv.put(CategoryDbContract.COLUMN_CATEGORY_NAME, categoryName);
         db.insert(CategoryDbContract.TABLE_NAME, null, cv);
     }
 
@@ -144,7 +144,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
         Cursor cursor = getAllCategories();
         for(int i = 0; i < cursor.getCount(); i++) {
             if(cursor.moveToPosition(i)) {
-                names.add(cursor.getString(cursor.getColumnIndex(CategoryDbContract.CATEGORY_NAME)));
+                names.add(cursor.getString(cursor.getColumnIndex(CategoryDbContract.COLUMN_CATEGORY_NAME)));
             }
         }
         return names;

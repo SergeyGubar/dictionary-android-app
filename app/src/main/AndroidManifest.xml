@@ -50,7 +50,12 @@
             android:name=".ForgotPasswordActivity"
             android:parentActivityName=".AuthActivity" />
         <activity android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity"/>
+
+        <provider
+            android:authorities="com.example.android.app"
+            android:name="com.example.Helpers.WordsProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>
