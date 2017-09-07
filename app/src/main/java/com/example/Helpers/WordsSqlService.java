@@ -5,16 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
 import com.example.Interfaces.SqlCategories;
 import com.example.Interfaces.SqlWords;
 import com.example.android.app.Word;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.data;
 
 
 /**
@@ -69,6 +65,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
         db.insert(WordDbContract.WordEntry.TABLE_NAME, null, cv);
     }
     @Override
+
     public Cursor getWordsWithinCategory(String category) {
         db = getReadableDatabase();
         return db.query(WordDbContract.WordEntry.TABLE_NAME,
@@ -80,7 +77,6 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
                 WordDbContract.WordEntry.COLUMN_TIMESTAMP
         );
     }
-
 
     @Override
     public void updateWord(String oldEng, String oldRus, String newEng, String newRus) {
@@ -95,7 +91,6 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
                         WordDbContract.WordEntry.COLUMN_RUS_WORD + " = " + "\"" + oldRus + "\"" ,
                 null
                 );
-
     }
 
     @Override
@@ -154,4 +149,18 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
         }
         return names;
     }
+
+    /*class WordsTask extends AsyncTask<String, Void, Cursor> {
+        @Override
+        protected Cursor doInBackground(String... params) {
+            String category = params[0];
+
+        }
+
+        @Override
+        protected void onPostExecute(Cursor cursor) {
+            super.onPostExecute(cursor);
+        }
+    }*/
+
 }
