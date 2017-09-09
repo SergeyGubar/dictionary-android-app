@@ -10,9 +10,9 @@ import android.provider.BaseColumns;
 public class WordDbContract {
 
     public static final String AUTHORTITY = "com.example.android.app";
-    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORTITY);
     public static final String PATH_WORDS = "words";
     public static final String PATH_CATEGORIES = "categories";
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORTITY);
 
     private WordDbContract() {
 

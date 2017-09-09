@@ -70,6 +70,7 @@ public class FirebaseService {
     }
 
     public static Word getWord(DataSnapshot dataSnapshot) {
+        //It ain't work in other way. Fuck firebase
         HashMap<String, String> wordHashMap = (HashMap<String, String>) dataSnapshot.getValue();
         Word tempWord = new Word(wordHashMap.get("engWord"), wordHashMap.get("rusWord"));
         return tempWord;

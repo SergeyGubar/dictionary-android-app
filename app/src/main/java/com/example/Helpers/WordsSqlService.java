@@ -1,10 +1,13 @@
 package com.example.Helpers;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
+
 import com.example.Interfaces.SqlCategories;
 import com.example.Interfaces.SqlWords;
 import com.example.android.app.Word;
@@ -22,9 +25,11 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
     private static final String DATABASE_NAME = "words.db";
     private static final int DATABASE_VERSION = 1;
     private SQLiteDatabase db;
+    private final ContentResolver mContentResolver;
 
     public WordsSqlService(Context ctx) {
         super(ctx, DATABASE_NAME, null, DATABASE_VERSION);
+        mContentResolver = ctx.getContentResolver();
     }
 
     @Override
@@ -47,7 +52,6 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
                 "); ";
         db.execSQL(categoryTableSqlQuery);
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + WordDbContract.WordEntry.TABLE_NAME);
@@ -56,16 +60,17 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
         onCreate(db);
     }
     @Override
+
     public void addWord(Word word) {
-        db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(WordDbContract.WordEntry.COLUMN_RUS_WORD, word.getRusWord());
         cv.put(WordDbContract.WordEntry.COLUMN_ENG_WORD, word.getEngWord());
         cv.put(WordDbContract.WordEntry.COLUMN_CATEGORY, word.getCategory());
-        db.insert(WordDbContract.WordEntry.TABLE_NAME, null, cv);
+        mContentResolver.insert(WordDbContract.WordEntry.CONTENT_URI, cv);
     }
-    @Override
 
+    // TODO: 9/9/2017 : implement this method
+    @Override
     public Cursor getWordsWithinCategory(String category) {
         db = getReadableDatabase();
         return db.query(WordDbContract.WordEntry.TABLE_NAME,
@@ -78,6 +83,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
         );
     }
 
+    // TODO: 9/9/2017 : implement this method
     @Override
     public void updateWord(String oldEng, String oldRus, String newEng, String newRus) {
         db = getWritableDatabase();
@@ -93,6 +99,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
                 );
     }
 
+    // TODO: 9/9/2017 : implement this method
     @Override
     public boolean removeWord(long id) {
         db = getWritableDatabase();
@@ -101,6 +108,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
                 null) > 0;
     }
 
+    // TODO: 9/9/2017 : implement this method
     @Override
     public Cursor getAllCategories() {
         db = getReadableDatabase();
@@ -115,6 +123,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
                 null);
     }
 
+    // TODO: 9/9/2017 : implement this method
     @Override
     public String getCategoryName(int position, Cursor cursor) {
         if(cursor.moveToPosition(position)) {
@@ -124,6 +133,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
         }
     }
 
+    // TODO: 9/9/2017 : implement this method
     @Override
     public void addCategory(String categoryName) {
         db = getWritableDatabase();
@@ -132,11 +142,13 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
         db.insert(CategoryDbContract.TABLE_NAME, null, cv);
     }
 
+    // TODO: 9/9/2017 : implement this method
     @Override
     public void removeCategory(String categoryName) {
         throw new UnsupportedOperationException("Will be implemented in the nearest future");
     }
 
+    // TODO: 9/9/2017 : implement this method
     @Override
     public List<String> getCategoriesNames() {
         List<String> names = new ArrayList<>();
@@ -150,17 +162,6 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
         return names;
     }
 
-    /*class WordsTask extends AsyncTask<String, Void, Cursor> {
-        @Override
-        protected Cursor doInBackground(String... params) {
-            String category = params[0];
 
-        }
-
-        @Override
-        protected void onPostExecute(Cursor cursor) {
-            super.onPostExecute(cursor);
-        }
-    }*/
 
 }

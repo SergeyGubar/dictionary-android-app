@@ -19,6 +19,7 @@ public class AddActivityPresenter {
     private SqlWords mService;
     private Context mCtx;
 
+
     public AddActivityPresenter(Context ctx, AddActivityApi api) {
         this.mApi = api;
         this.mCtx = ctx;
