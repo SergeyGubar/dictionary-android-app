@@ -59,8 +59,8 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
         db.execSQL(sqlQuery);
         onCreate(db);
     }
-    @Override
 
+    @Override
     public void addWord(Word word) {
         ContentValues cv = new ContentValues();
         cv.put(WordDbContract.WordEntry.COLUMN_RUS_WORD, word.getRusWord());
@@ -72,7 +72,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
     // TODO: 9/9/2017 : implement this method
     @Override
     public Cursor getWordsWithinCategory(String category) {
-        db = getReadableDatabase();
+        /*db = getReadableDatabase();
         return db.query(WordDbContract.WordEntry.TABLE_NAME,
                 null,
                 WordDbContract.WordEntry.COLUMN_CATEGORY + " = " +  "\"" + category + "\"",
@@ -80,7 +80,9 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
                 null,
                 null,
                 WordDbContract.WordEntry.COLUMN_TIMESTAMP
-        );
+        );*/
+        Uri uri = WordDbContract.WordEntry.CONTENT_URI.buildUpon().appendPath(category).build();
+        return mContentResolver.query(uri, null, null, null, null);
     }
 
     // TODO: 9/9/2017 : implement this method
