@@ -53,8 +53,8 @@
             android:parentActivityName=".MainActivity"/>
 
         <provider
+            android:name="com.example.Helpers.WordsContentProvider"
             android:authorities="com.example.android.app"
-            android:name="com.example.Helpers.WordsProvider"
             android:exported="false"/>
     </application>
 

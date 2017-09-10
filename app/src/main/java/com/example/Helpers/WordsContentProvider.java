@@ -9,26 +9,26 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 /**
  * Created by Sergey on 9/7/2017.
  */
 
-public class WordsProvider extends ContentProvider {
+public class WordsContentProvider extends ContentProvider {
 
-    private SQLiteDatabase mDb;
-    private WordsSqlService mService;
     public static final int WORDS = 100;
     public static final int WORD_WITH_ID = 101;
     public static final int WORDS_WITHIN_CATEGORY = 200;
-    private static final String TAG = WordsProvider.class.getSimpleName();
     public static final UriMatcher sUriMatcher = buildUriMatcher();
+    private static final String TAG = WordsContentProvider.class.getSimpleName();
+    private SQLiteDatabase mDb;
+    private WordsSqlService mService;
 
     private static UriMatcher buildUriMatcher() {
         UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -38,6 +38,19 @@ public class WordsProvider extends ContentProvider {
         matcher.addURI(WordDbContract.AUTHORTITY, WordDbContract.PATH_WORDS + "/*",
                 WORDS_WITHIN_CATEGORY);
         return matcher;
+    }
+
+    //There should be an extension method for the String class, but unfortunately, Java doesn't provide
+    //an opportunity to add extension methods. Should've done it in Kotlin
+    private static String getLastArgument(String uriString) {
+        Pattern p = Pattern.compile("[^/]+$");
+        Matcher m = p.matcher(uriString);
+        String lastArgument = "";
+
+        while (m.find()) {
+            lastArgument = m.group();
+        }
+        return lastArgument;
     }
 
     @Override
@@ -53,22 +66,12 @@ public class WordsProvider extends ContentProvider {
                         @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         mDb = mService.getReadableDatabase();
         int match = sUriMatcher.match(uri);
-        String str = uri.toString();
-
         Cursor returnCursor;
-        Pattern p = Pattern.compile("[^/]+$");
-        Matcher m = p.matcher(str);
-        String categoryName = "";
-
-
-        while (m.find()) {
-            categoryName = m.group();
-        }
+        String categoryName = getLastArgument(uri.toString());
         Log.v(TAG, categoryName);
         switch (match) {
             case WORDS:
-                // TODO: 9/8/2017 Query data for the whole data
-
+                Log.v(TAG, "Trying to access the whole word list");
                 returnCursor = mDb.query(WordDbContract.WordEntry.TABLE_NAME,
                         null,
                         null,
@@ -126,6 +129,15 @@ public class WordsProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+        int match = sUriMatcher.match(uri);
+        mDb = mService.getWritableDatabase();
+        String id = getLastArgument(uri.toString());
+        switch (match) {
+            case WORD_WITH_ID:
+                return mDb.delete(WordDbContract.WordEntry.TABLE_NAME,
+                        WordDbContract.WordEntry._ID + " = " + id,
+                        null);
+        }
         return 0;
     }
 
@@ -133,4 +145,5 @@ public class WordsProvider extends ContentProvider {
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
         return 0;
     }
+
 }

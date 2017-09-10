@@ -12,6 +12,7 @@ import android.util.Log;
 import com.example.Interfaces.CategoriesService;
 import com.example.Interfaces.WordsService;
 import com.example.android.app.Word;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
     private static final String TAG = WordsSqlService.class.getSimpleName();
     private static final String DATABASE_NAME = "words.db";
     private static final int DATABASE_VERSION = 1;
-    private SQLiteDatabase db;
     private final ContentResolver mContentResolver;
+    private SQLiteDatabase db;
 
     public WordsSqlService(Context ctx) {
         super(ctx, DATABASE_NAME, null, DATABASE_VERSION);
@@ -68,6 +69,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
         cv.put(WordDbContract.WordEntry.COLUMN_RUS_WORD, word.getRusWord());
         cv.put(WordDbContract.WordEntry.COLUMN_ENG_WORD, word.getEngWord());
         cv.put(WordDbContract.WordEntry.COLUMN_CATEGORY, word.getCategory());
+
         mContentResolver.insert(WordDbContract.WordEntry.CONTENT_URI, cv);
     }
 
@@ -97,15 +99,17 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
     // TODO: 9/9/2017 : implement this method
     @Override
     public boolean removeWord(long id) {
-        db = getWritableDatabase();
-        return db.delete(WordDbContract.WordEntry.TABLE_NAME,
-                WordDbContract.WordEntry._ID + " = " + id,
-                null) > 0;
+        Uri uri = WordDbContract.WordEntry.CONTENT_URI.buildUpon().appendPath(String.valueOf(id))
+                .build();
+        int columnsDeleted = mContentResolver.delete(uri, null, null);
+        return columnsDeleted > 0;
     }
 
     // TODO: 9/9/2017 : implement this method
     @Override
     public Cursor getAllCategories() {
+        //TODO : NOTE : Maybe it's a bit wrong idea - to handle the whole table only for categories names,
+        //so i should do it within SharedPreferences
         db = getReadableDatabase();
         return db.query(true,
                 CategoryDbContract.TABLE_NAME,
