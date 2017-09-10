@@ -9,7 +9,7 @@ import com.example.android.app.Word;
  * Created by Sergey on 8/20/2017.
  */
 
-public interface SqlWords {
+public interface WordsService {
 
     void addWord(Word word);
 

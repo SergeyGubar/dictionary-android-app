@@ -12,12 +12,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.Helpers.WordsSqlService;
-import com.example.Interfaces.SqlCategories;
+import com.example.Interfaces.CategoriesService;
 import com.example.Presenters.AddActivityPresenter;
 import com.example.Interfaces.AddActivityApi;
 
-import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 
 public class AddActivity extends AppCompatActivity implements AddActivityApi {
@@ -27,7 +25,7 @@ public class AddActivity extends AppCompatActivity implements AddActivityApi {
     private EditText mEngWordEditText;
     private EditText mRusWordEditText;
     private AddActivityPresenter mPresenter;
-    private SqlCategories mService;
+    private CategoriesService mService;
     private Toolbar mToolBar;
 
 

@@ -7,9 +7,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.util.Log;
 
-import com.example.Interfaces.SqlCategories;
-import com.example.Interfaces.SqlWords;
+import com.example.Interfaces.CategoriesService;
+import com.example.Interfaces.WordsService;
 import com.example.android.app.Word;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,9 @@ import java.util.List;
  * Created by Sergey on 8/18/2017.
  */
 
-public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCategories {
+public class WordsSqlService extends SQLiteOpenHelper implements WordsService, CategoriesService {
 
+    private static final String TAG = WordsSqlService.class.getSimpleName();
     private static final String DATABASE_NAME = "words.db";
     private static final int DATABASE_VERSION = 1;
     private SQLiteDatabase db;
@@ -69,19 +71,10 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
         mContentResolver.insert(WordDbContract.WordEntry.CONTENT_URI, cv);
     }
 
-    // TODO: 9/9/2017 : implement this method
     @Override
     public Cursor getWordsWithinCategory(String category) {
-        /*db = getReadableDatabase();
-        return db.query(WordDbContract.WordEntry.TABLE_NAME,
-                null,
-                WordDbContract.WordEntry.COLUMN_CATEGORY + " = " +  "\"" + category + "\"",
-                null,
-                null,
-                null,
-                WordDbContract.WordEntry.COLUMN_TIMESTAMP
-        );*/
         Uri uri = WordDbContract.WordEntry.CONTENT_URI.buildUpon().appendPath(category).build();
+        Log.v(TAG, "QUERY " + uri.toString());
         return mContentResolver.query(uri, null, null, null, null);
     }
 
@@ -129,7 +122,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements SqlWords, SqlCa
     @Override
     public String getCategoryName(int position, Cursor cursor) {
         if(cursor.moveToPosition(position)) {
-            return cursor.getString(cursor.getColumnIndex(CategoryDbContract.COLUMN_CATEGORY_NAME));
+            return cursor.getString(cursor.getColumnIndex(CategoryDbContract.COLUMN_CATEGORY_NAME)).toLowerCase();
         } else {
             return null;
         }

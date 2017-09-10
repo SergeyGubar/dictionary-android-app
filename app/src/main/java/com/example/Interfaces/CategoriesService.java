@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Sergey on 8/24/2017.
  */
 
-public interface SqlCategories {
+public interface CategoriesService {
     void addCategory(String categoryName);
 
     void removeCategory(String categoryName);

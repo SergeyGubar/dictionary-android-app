@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.Interfaces.SqlWords;
+import com.example.Interfaces.WordsService;
 import com.example.Presenters.WordsActivityPresenter;
 import com.example.android.app.R;
 
@@ -23,7 +23,7 @@ import com.example.android.app.R;
 public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdapter.WordsViewHolder> {
     private Cursor mCursor;
     private Context mCtx;
-    private SqlWords mService;
+    private WordsService mService;
     private WordsActivityPresenter mPresenter;
 
 
@@ -112,7 +112,6 @@ public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdap
 
                             }
                         });
-
                         dialog.hide();
                         editDialog.show();
                     }

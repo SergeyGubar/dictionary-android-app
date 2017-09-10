@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.Fragments.WordsFragment;
 import com.example.Helpers.WordsSqlService;
 import com.example.Interfaces.MainActivityApi;
-import com.example.Interfaces.SqlCategories;
+import com.example.Interfaces.CategoriesService;
 
 /**
  * Created by Sergey on 7/27/2017.
@@ -18,7 +18,7 @@ import com.example.Interfaces.SqlCategories;
 public class WordsFragmentAdapter extends FragmentPagerAdapter {
     private final String KEY = "ACTIVITY";
     private MainActivityApi mApi;
-    private SqlCategories mService;
+    private CategoriesService mService;
     private Cursor mCategories;
 
     public WordsFragmentAdapter(FragmentManager fragmentManager) {

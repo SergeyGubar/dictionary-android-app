@@ -3,9 +3,10 @@ package com.example.Presenters;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.Helpers.WordsSqlService;
-import com.example.Interfaces.SqlWords;
+import com.example.Interfaces.WordsService;
 import com.example.Interfaces.WordsActivityApi;
 
 
@@ -14,9 +15,10 @@ import com.example.Interfaces.WordsActivityApi;
  */
 
 public class WordsActivityPresenter {
-    private Context mCtx;
-    private WordsActivityApi mApi;
-    private SqlWords mService;
+    private final Context mCtx;
+    private final WordsActivityApi mApi;
+    private final WordsService mService;
+    private final static String TAG = "WordsActivityPresenter";
 
     public WordsActivityPresenter(Context ctx, WordsActivityApi mApi) {
         this.mCtx = ctx;
@@ -37,7 +39,9 @@ public class WordsActivityPresenter {
     }
 
     public Cursor getWords() {
-        Cursor cursor = mService.getWordsWithinCategory(mApi.getCategoryName());
+        String category = mApi.getCategoryName();
+        Log.v(TAG, "Category called: " + category);
+        Cursor cursor = mService.getWordsWithinCategory(category);
         mApi.getLoadingIndicator().hide();
         return cursor;
     }

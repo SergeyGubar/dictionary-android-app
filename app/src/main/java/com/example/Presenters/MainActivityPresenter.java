@@ -2,7 +2,6 @@ package com.example.Presenters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.Helpers.PreferencesKeys;
 import com.example.Helpers.WordsSqlService;
-import com.example.Interfaces.SqlCategories;
+import com.example.Interfaces.CategoriesService;
 import com.example.android.app.AddActivity;
 import com.example.Interfaces.MainActivityApi;
 import com.example.android.app.R;
@@ -24,7 +22,7 @@ import com.example.android.app.R;
 public class MainActivityPresenter {
     private Context mCtx;
     private MainActivityApi mApi;
-    private SqlCategories mService;
+    private CategoriesService mService;
 
     public MainActivityPresenter(Context mCtx, MainActivityApi mApi) {
         this.mCtx = mCtx;

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.Helpers.WordsSqlService;
-import com.example.Interfaces.SqlWords;
+import com.example.Interfaces.WordsService;
 import com.example.android.app.R;
 import com.example.android.app.Word;
 import com.example.Interfaces.AddActivityApi;
@@ -16,7 +16,7 @@ import com.example.Interfaces.AddActivityApi;
 
 public class AddActivityPresenter {
     private AddActivityApi mApi;
-    private SqlWords mService;
+    private WordsService mService;
     private Context mCtx;
 
 
@@ -30,7 +30,7 @@ public class AddActivityPresenter {
 
         String rus = mApi.getRusText();
         String eng = mApi.getEngText();
-        String category = mApi.getSelectedSpinnerItem().toString();
+        String category = mApi.getSelectedSpinnerItem().toString().toLowerCase();
         if (!rus.equals("") && !eng.equals("")) {
             Word word = new Word(rus, eng, category);
             mService.addWord(word);
