@@ -19,7 +19,7 @@ import com.example.Interfaces.AddActivityApi;
 import java.util.List;
 
 public class AddActivity extends AppCompatActivity implements AddActivityApi {
-    private final String TAG = "AddActivity";
+    private final String TAG = AddActivity.class.getSimpleName();
     private Spinner mSpinner;
     private Button mAddButton;
     private EditText mEngWordEditText;

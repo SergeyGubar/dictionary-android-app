@@ -16,6 +16,7 @@ import android.util.Log;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
  * Created by Sergey on 9/7/2017.
  */
@@ -30,6 +31,13 @@ public class WordsContentProvider extends ContentProvider {
     private SQLiteDatabase mDb;
     private WordsSqlService mService;
 
+    @Override
+    public boolean onCreate() {
+        Context ctx = getContext();
+        mService = new WordsSqlService(ctx);
+        return true;
+    }
+
     private static UriMatcher buildUriMatcher() {
         UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         matcher.addURI(WordDbContract.AUTHORTITY, WordDbContract.PATH_WORDS, WORDS);
@@ -40,26 +48,6 @@ public class WordsContentProvider extends ContentProvider {
         return matcher;
     }
 
-    //There should be an extension method for the String class, but unfortunately, Java doesn't provide
-    //an opportunity to add extension methods. Should've done it in Kotlin
-    private static String getLastArgument(String uriString) {
-        Pattern p = Pattern.compile("[^/]+$");
-        Matcher m = p.matcher(uriString);
-        String lastArgument = "";
-
-        while (m.find()) {
-            lastArgument = m.group();
-        }
-        return lastArgument;
-    }
-
-    @Override
-    public boolean onCreate() {
-        Context ctx = getContext();
-        mService = new WordsSqlService(ctx);
-        return true;
-    }
-
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection,
@@ -67,7 +55,7 @@ public class WordsContentProvider extends ContentProvider {
         mDb = mService.getReadableDatabase();
         int match = sUriMatcher.match(uri);
         Cursor returnCursor;
-        String categoryName = getLastArgument(uri.toString());
+        String categoryName = getLastUriArgument(uri.toString());
         Log.v(TAG, categoryName);
         switch (match) {
             case WORDS:
@@ -84,7 +72,7 @@ public class WordsContentProvider extends ContentProvider {
                 Log.v(TAG, "Trying to access URI with type WORDS_WITHIN_CATEGORY");
                 returnCursor = mDb.query(WordDbContract.WordEntry.TABLE_NAME,
                         null,
-                        WordDbContract.WordEntry.COLUMN_CATEGORY + " = " +  "\"" + categoryName + "\"",
+                        WordDbContract.WordEntry.COLUMN_CATEGORY + " = " + "\"" + categoryName + "\"",
                         null,
                         null,
                         null,
@@ -110,7 +98,7 @@ public class WordsContentProvider extends ContentProvider {
         switch (match) {
             case WORDS:
                 long id = mDb.insert(WordDbContract.WordEntry.TABLE_NAME, null, values);
-                if(id > 0) {
+                if (id > 0) {
                     returnUri = ContentUris.withAppendedId(WordDbContract.WordEntry.CONTENT_URI, id);
                 } else {
                     throw new SQLException("Failed to insert data: " + uri);
@@ -131,19 +119,45 @@ public class WordsContentProvider extends ContentProvider {
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
         int match = sUriMatcher.match(uri);
         mDb = mService.getWritableDatabase();
-        String id = getLastArgument(uri.toString());
+        String id = getLastUriArgument(uri.toString());
         switch (match) {
             case WORD_WITH_ID:
                 return mDb.delete(WordDbContract.WordEntry.TABLE_NAME,
                         WordDbContract.WordEntry._ID + " = " + id,
                         null);
+            default:
+                throw new SQLException("Unknown URI");
         }
-        return 0;
     }
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        int match = sUriMatcher.match(uri);
+        String id = getLastUriArgument(uri.toString());
+        switch (match) {
+            case WORD_WITH_ID:
+                return mDb.update(WordDbContract.WordEntry.TABLE_NAME,
+                        values,
+                        WordDbContract.WordEntry._ID + " = " + id,
+                        null
+                );
+            default:
+                throw new SQLException("Unknown URI" + uri.toString());
+        }
     }
+
+    //There should be an extension method for the String class, but unfortunately, Java doesn't provide
+    //an opportunity to add extension methods. Should've done it in Kotlin
+    private static String getLastUriArgument(String uriString) {
+        Pattern p = Pattern.compile("[^/]+$");
+        Matcher m = p.matcher(uriString);
+        String lastArgument = "";
+
+        while (m.find()) {
+            lastArgument = m.group();
+        }
+        return lastArgument;
+    }
+
 
 }

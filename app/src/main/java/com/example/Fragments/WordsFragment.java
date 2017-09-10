@@ -22,7 +22,7 @@ import com.wang.avi.AVLoadingIndicatorView;
  */
 
 public class WordsFragment extends Fragment implements WordsActivityApi {
-    private final String TAG = "WordsFragment";
+    private final String TAG = WordsFragment.class.getSimpleName();
     private WordsActivityPresenter mPresenter;
     private AVLoadingIndicatorView mAvi;
     private RecyclerView mRecyclerView;

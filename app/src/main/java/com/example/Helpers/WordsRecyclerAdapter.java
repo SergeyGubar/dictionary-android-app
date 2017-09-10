@@ -104,7 +104,7 @@ public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdap
 
                                 String newEngWord = newEngWordTextView.getText().toString();
                                 String newRusWord = newRusWordTextView.getText().toString();
-                                mService.updateWord(engWord, rusWord, newEngWord, newRusWord);
+                                mService.updateWord(id, newEngWord, newRusWord);
                                 newRusWordTextView.clearFocus();
                                 Toast.makeText(mCtx, R.string.word_edited_succesfully, Toast.LENGTH_SHORT).show();
                                 swapCursor(mPresenter.getWords());

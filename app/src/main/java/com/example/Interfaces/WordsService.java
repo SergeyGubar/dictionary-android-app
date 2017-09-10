@@ -17,6 +17,6 @@ public interface WordsService {
 
     boolean removeWord(long id);
 
-    void updateWord(String oldEng, String oldRus, String newEng, String newRus);
+    void updateWord(long id, String newEng, String newRus);
 
 }

@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * Created by Sergey on 8/18/2017.
  */
@@ -55,6 +54,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
                 "); ";
         db.execSQL(categoryTableSqlQuery);
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + WordDbContract.WordEntry.TABLE_NAME);
@@ -80,23 +80,18 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
         return mContentResolver.query(uri, null, null, null, null);
     }
 
-    // TODO: 9/9/2017 : implement this method
     @Override
-    public void updateWord(String oldEng, String oldRus, String newEng, String newRus) {
-        db = getWritableDatabase();
+    public void updateWord(long id, String newEng, String newRus) {
         ContentValues cv = new ContentValues();
         cv.put(WordDbContract.WordEntry.COLUMN_ENG_WORD, newEng);
         cv.put(WordDbContract.WordEntry.COLUMN_RUS_WORD, newRus);
-
-        db.update(WordDbContract.WordEntry.TABLE_NAME,
-                cv,
-                WordDbContract.WordEntry.COLUMN_ENG_WORD + " = " + "\"" + oldEng + "\""  + " AND " +
-                        WordDbContract.WordEntry.COLUMN_RUS_WORD + " = " + "\"" + oldRus + "\"" ,
-                null
-                );
+        Log.d(TAG, String.valueOf(id));
+        Uri uri = WordDbContract.WordEntry.CONTENT_URI.buildUpon()
+                .appendPath(String.valueOf(id))
+                .build();
+        mContentResolver.update(uri, cv, null, null);
     }
 
-    // TODO: 9/9/2017 : implement this method
     @Override
     public boolean removeWord(long id) {
         Uri uri = WordDbContract.WordEntry.CONTENT_URI.buildUpon().appendPath(String.valueOf(id))
@@ -125,7 +120,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
     // TODO: 9/9/2017 : implement this method
     @Override
     public String getCategoryName(int position, Cursor cursor) {
-        if(cursor.moveToPosition(position)) {
+        if (cursor.moveToPosition(position)) {
             return cursor.getString(cursor.getColumnIndex(CategoryDbContract.COLUMN_CATEGORY_NAME)).toLowerCase();
         } else {
             return null;
@@ -153,14 +148,13 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
         List<String> names = new ArrayList<>();
 
         Cursor cursor = getAllCategories();
-        for(int i = 0; i < cursor.getCount(); i++) {
-            if(cursor.moveToPosition(i)) {
+        for (int i = 0; i < cursor.getCount(); i++) {
+            if (cursor.moveToPosition(i)) {
                 names.add(cursor.getString(cursor.getColumnIndex(CategoryDbContract.COLUMN_CATEGORY_NAME)));
             }
         }
         return names;
     }
-
 
 
 }
