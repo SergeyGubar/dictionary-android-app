@@ -1,4 +1,4 @@
-package com.example.android.app;
+package com.dictionaryapp.android.app;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -6,10 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.Fragments.WordsFragment;
-import com.example.Helpers.WordsSqlService;
-import com.example.Interfaces.MainActivityApi;
-import com.example.Interfaces.CategoriesService;
+import com.dictionaryapp.Fragments.WordsFragment;
+import com.dictionaryapp.Helpers.WordsSqlService;
+import com.dictionaryapp.Interfaces.MainActivityApi;
+import com.dictionaryapp.Interfaces.CategoriesService;
 
 /**
  * Created by Sergey on 7/27/2017.

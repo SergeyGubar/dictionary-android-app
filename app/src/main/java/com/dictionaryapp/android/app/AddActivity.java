@@ -1,4 +1,4 @@
-package com.example.android.app;
+package com.dictionaryapp.android.app;
 
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.Helpers.WordsSqlService;
-import com.example.Interfaces.CategoriesService;
-import com.example.Presenters.AddActivityPresenter;
-import com.example.Interfaces.AddActivityApi;
+import com.dictionaryapp.Helpers.WordsSqlService;
+import com.dictionaryapp.Interfaces.CategoriesService;
+import com.dictionaryapp.Presenters.AddActivityPresenter;
+import com.dictionaryapp.Interfaces.AddActivityApi;
 
 import java.util.List;
 

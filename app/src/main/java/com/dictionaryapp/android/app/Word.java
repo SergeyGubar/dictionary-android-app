@@ -1,4 +1,4 @@
-package com.example.android.app;
+package com.dictionaryapp.android.app;
 
 /**
  * Created by Sergey on 6/22/2017.

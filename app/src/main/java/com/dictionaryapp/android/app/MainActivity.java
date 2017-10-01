@@ -13,27 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.app;
+package com.dictionaryapp.android.app;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.example.Helpers.FirebaseService;
-import com.example.Presenters.MainActivityPresenter;
-import com.example.Interfaces.MainActivityApi;
+import com.dictionaryapp.Helpers.FirebaseService;
+import com.dictionaryapp.Presenters.MainActivityPresenter;
+import com.dictionaryapp.Interfaces.MainActivityApi;
 
 
 public class MainActivity extends AppCompatActivity implements MainActivityApi {

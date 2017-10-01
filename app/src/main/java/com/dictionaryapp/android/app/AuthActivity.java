@@ -1,4 +1,4 @@
-package com.example.android.app;
+package com.dictionaryapp.android.app;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.Presenters.AuthActivityPresenter;
-import com.example.Interfaces.AuthActivityApi;
+import com.dictionaryapp.Presenters.AuthActivityPresenter;
+import com.dictionaryapp.Interfaces.AuthActivityApi;
 
 public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
     private EditText mEmailEditText;

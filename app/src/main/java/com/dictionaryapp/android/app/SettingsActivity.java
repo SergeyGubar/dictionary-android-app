@@ -1,4 +1,4 @@
-package com.example.android.app;
+package com.dictionaryapp.android.app;
 
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;

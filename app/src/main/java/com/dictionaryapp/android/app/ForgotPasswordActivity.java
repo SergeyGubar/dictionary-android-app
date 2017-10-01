@@ -1,4 +1,4 @@
-package com.example.android.app;
+package com.dictionaryapp.android.app;
 
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.Presenters.ForgotPasswordPresenter;
-import com.example.Interfaces.ForgotPasswordApi;
-import com.example.Interfaces.ResetPassword;
+import com.dictionaryapp.Presenters.ForgotPasswordPresenter;
+import com.dictionaryapp.Interfaces.ForgotPasswordApi;
+import com.dictionaryapp.Interfaces.ResetPassword;
 
 public class ForgotPasswordActivity extends AppCompatActivity implements ForgotPasswordApi {
     private EditText mEmailEditText;

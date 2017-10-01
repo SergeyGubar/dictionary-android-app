@@ -1,4 +1,4 @@
-package com.example.android.app;
+package com.dictionaryapp.android.app;
 
 import android.app.Activity;
 import android.support.v4.app.NavUtils;
@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.Presenters.RegisterActivityPresenter;
-import com.example.Interfaces.RegisterActivityApi;
-import com.example.Interfaces.Registrable;
+import com.dictionaryapp.Presenters.RegisterActivityPresenter;
+import com.dictionaryapp.Interfaces.RegisterActivityApi;
+import com.dictionaryapp.Interfaces.Registrable;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterActivityApi {
     private Button registerButton;
