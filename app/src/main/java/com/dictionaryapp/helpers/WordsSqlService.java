@@ -13,6 +13,7 @@ import com.dictionaryapp.interfaces.CategoriesService;
 import com.dictionaryapp.interfaces.WordsService;
 import com.dictionaryapp.android.app.Word;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,11 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
     private static final int DATABASE_VERSION = 1;
     private final ContentResolver mContentResolver;
     private SQLiteDatabase db;
+
+
+    // Это очень странный класс, так как он по сути завязан на Content Provider, а тот в свою очередь
+    // на этом классе. Мой фейл, переделывать пока нет времени
+
 
     public WordsSqlService(Context ctx) {
         super(ctx, DATABASE_NAME, null, DATABASE_VERSION);
@@ -127,7 +133,6 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
         }
     }
 
-    // TODO: 9/9/2017 : implement this method
     @Override
     public void addCategory(String categoryName) {
         db = getWritableDatabase();
@@ -136,13 +141,13 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
         db.insert(CategoryDbContract.TABLE_NAME, null, cv);
     }
 
-    // TODO: 9/9/2017 : implement this method
+    //
     @Override
     public void removeCategory(String categoryName) {
-        throw new UnsupportedOperationException("Will be implemented in the nearest future");
+        Uri uri = CategoryDbContract.CONTENT_URI.buildUpon().appendPath(categoryName).build();
+        mContentResolver.delete(uri, null, null);
     }
 
-    // TODO: 9/9/2017 : implement this method
     @Override
     public List<String> getCategoriesNames() {
         List<String> names = new ArrayList<>();

@@ -65,7 +65,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginRight="16dp"
             app:srcCompat="@drawable/ic_edit_white_48dp"
-            app:backgroundTint="@color/category_family"
+
             app:fabSize="normal" />
 
 

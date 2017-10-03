@@ -25,7 +25,7 @@ public class WordsContentProvider extends ContentProvider {
 
     public static final int WORDS = 100;
     public static final int WORD_WITH_ID = 101;
-    public static final int WORDS_WITHIN_CATEGORY = 200;
+    public static final int CATEGORY = 200;
     public static final UriMatcher sUriMatcher = buildUriMatcher();
     private static final String TAG = WordsContentProvider.class.getSimpleName();
     private SQLiteDatabase mDb;
@@ -44,7 +44,7 @@ public class WordsContentProvider extends ContentProvider {
         matcher.addURI(WordDbContract.AUTHORTITY, WordDbContract.PATH_WORDS + "/#",
                 WORD_WITH_ID);
         matcher.addURI(WordDbContract.AUTHORTITY, WordDbContract.PATH_WORDS + "/*",
-                WORDS_WITHIN_CATEGORY);
+                CATEGORY);
         return matcher;
     }
 
@@ -68,8 +68,8 @@ public class WordsContentProvider extends ContentProvider {
                         null,
                         WordDbContract.WordEntry.COLUMN_TIMESTAMP);
                 return returnCursor;
-            case WORDS_WITHIN_CATEGORY:
-                Log.v(TAG, "Trying to access URI with type WORDS_WITHIN_CATEGORY");
+            case CATEGORY:
+                Log.v(TAG, "Trying to access URI with type CATEGORY");
                 returnCursor = mDb.query(WordDbContract.WordEntry.TABLE_NAME,
                         null,
                         WordDbContract.WordEntry.COLUMN_CATEGORY + " = " + "\"" + categoryName + "\"",
@@ -119,12 +119,17 @@ public class WordsContentProvider extends ContentProvider {
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
         int match = sUriMatcher.match(uri);
         mDb = mService.getWritableDatabase();
-        String id = getLastUriArgument(uri.toString());
+        String lastArgument = getLastUriArgument(uri.toString());
         switch (match) {
             case WORD_WITH_ID:
                 return mDb.delete(WordDbContract.WordEntry.TABLE_NAME,
-                        WordDbContract.WordEntry._ID + " = " + id,
+                        WordDbContract.WordEntry._ID + " = " + lastArgument,
                         null);
+            case CATEGORY:
+                return mDb.delete(CategoryDbContract.TABLE_NAME,
+                        CategoryDbContract.COLUMN_CATEGORY_NAME + " = " + lastArgument,
+                        null
+                        );
             default:
                 throw new SQLException("Unknown URI");
         }
