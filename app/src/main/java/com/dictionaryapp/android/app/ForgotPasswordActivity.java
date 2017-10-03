@@ -8,14 +8,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.dictionaryapp.Presenters.ForgotPasswordPresenter;
-import com.dictionaryapp.Interfaces.ForgotPasswordApi;
-import com.dictionaryapp.Interfaces.ResetPassword;
+import com.dictionaryapp.presenters.ForgotPasswordPresenter;
+import com.dictionaryapp.interfaces.ForgotPasswordApi;
+import com.dictionaryapp.interfaces.ResetPassword;
 
 public class ForgotPasswordActivity extends AppCompatActivity implements ForgotPasswordApi {
+
     private EditText mEmailEditText;
     private Button mResetButton;
     private ResetPassword mPresenter;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements ForgotP
                 mPresenter.sendResetPasswordLink();
             }
         });
-
     }
 
     @Override

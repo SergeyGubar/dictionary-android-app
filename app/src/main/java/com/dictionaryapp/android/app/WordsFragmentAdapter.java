@@ -6,10 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.dictionaryapp.Fragments.WordsFragment;
-import com.dictionaryapp.Helpers.WordsSqlService;
-import com.dictionaryapp.Interfaces.MainActivityApi;
-import com.dictionaryapp.Interfaces.CategoriesService;
+import com.dictionaryapp.fragments.WordsFragment;
+import com.dictionaryapp.helpers.WordsSqlService;
+import com.dictionaryapp.interfaces.MainActivityApi;
+import com.dictionaryapp.interfaces.CategoriesService;
 
 /**
  * Created by Sergey on 7/27/2017.

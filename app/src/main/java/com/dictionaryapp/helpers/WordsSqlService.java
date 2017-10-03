@@ -1,4 +1,4 @@
-package com.dictionaryapp.Helpers;
+package com.dictionaryapp.helpers;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -9,8 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
 
-import com.dictionaryapp.Interfaces.CategoriesService;
-import com.dictionaryapp.Interfaces.WordsService;
+import com.dictionaryapp.interfaces.CategoriesService;
+import com.dictionaryapp.interfaces.WordsService;
 import com.dictionaryapp.android.app.Word;
 
 import java.util.ArrayList;

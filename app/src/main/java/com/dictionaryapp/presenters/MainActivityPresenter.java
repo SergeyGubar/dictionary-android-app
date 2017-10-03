@@ -1,4 +1,4 @@
-package com.dictionaryapp.Presenters;
+package com.dictionaryapp.presenters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,10 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dictionaryapp.Helpers.WordsSqlService;
-import com.dictionaryapp.Interfaces.CategoriesService;
+import com.dictionaryapp.helpers.WordsSqlService;
+import com.dictionaryapp.interfaces.CategoriesService;
 import com.dictionaryapp.android.app.AddActivity;
-import com.dictionaryapp.Interfaces.MainActivityApi;
+import com.dictionaryapp.interfaces.MainActivityApi;
 import com.dictionaryapp.android.app.R;
 
 /**

@@ -1,4 +1,4 @@
-package com.dictionaryapp.Helpers;
+package com.dictionaryapp.helpers;
 
 import android.net.Uri;
 import android.provider.BaseColumns;

@@ -1,4 +1,4 @@
-package com.dictionaryapp.Helpers;
+package com.dictionaryapp.helpers;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;

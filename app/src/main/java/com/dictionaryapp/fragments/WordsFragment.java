@@ -1,4 +1,4 @@
-package com.dictionaryapp.Fragments;
+package com.dictionaryapp.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dictionaryapp.Helpers.WordsRecyclerAdapter;
-import com.dictionaryapp.Presenters.WordsActivityPresenter;
+import com.dictionaryapp.helpers.WordsRecyclerAdapter;
+import com.dictionaryapp.presenters.WordsActivityPresenter;
 import com.dictionaryapp.android.app.R;
-import com.dictionaryapp.Interfaces.WordsActivityApi;
+import com.dictionaryapp.interfaces.WordsActivityApi;
 import com.wang.avi.AVLoadingIndicatorView;
 
 /**

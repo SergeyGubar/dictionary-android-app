@@ -1,4 +1,4 @@
-package com.dictionaryapp.Helpers;
+package com.dictionaryapp.helpers;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dictionaryapp.Interfaces.WordsService;
-import com.dictionaryapp.Presenters.WordsActivityPresenter;
+import com.dictionaryapp.interfaces.WordsService;
+import com.dictionaryapp.presenters.WordsActivityPresenter;
 import com.dictionaryapp.android.app.R;
 
 /**

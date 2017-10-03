@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.dictionaryapp.Presenters.RegisterActivityPresenter;
-import com.dictionaryapp.Interfaces.RegisterActivityApi;
-import com.dictionaryapp.Interfaces.Registrable;
+import com.dictionaryapp.presenters.RegisterActivityPresenter;
+import com.dictionaryapp.interfaces.RegisterActivityApi;
+import com.dictionaryapp.interfaces.Registrable;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterActivityApi {
     private Button registerButton;

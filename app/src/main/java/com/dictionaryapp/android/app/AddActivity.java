@@ -11,10 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.dictionaryapp.Helpers.WordsSqlService;
-import com.dictionaryapp.Interfaces.CategoriesService;
-import com.dictionaryapp.Presenters.AddActivityPresenter;
-import com.dictionaryapp.Interfaces.AddActivityApi;
+import com.dictionaryapp.helpers.WordsSqlService;
+import com.dictionaryapp.interfaces.CategoriesService;
+import com.dictionaryapp.presenters.AddActivityPresenter;
+import com.dictionaryapp.interfaces.AddActivityApi;
 
 import java.util.List;
 

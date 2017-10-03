@@ -1,6 +1,6 @@
-package com.dictionaryapp.Interfaces;
+package com.dictionaryapp.interfaces;
 
-import com.dictionaryapp.Presenters.WordsActivityPresenter;
+import com.dictionaryapp.presenters.WordsActivityPresenter;
 import com.wang.avi.AVLoadingIndicatorView;
 
 /**

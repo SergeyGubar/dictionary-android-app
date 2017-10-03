@@ -8,8 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.dictionaryapp.Presenters.AuthActivityPresenter;
-import com.dictionaryapp.Interfaces.AuthActivityApi;
+import com.dictionaryapp.presenters.AuthActivityPresenter;
+import com.dictionaryapp.interfaces.AuthActivityApi;
 
 public class AuthActivity extends AppCompatActivity implements AuthActivityApi {
     private EditText mEmailEditText;

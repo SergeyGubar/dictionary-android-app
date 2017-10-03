@@ -1,13 +1,13 @@
-package com.dictionaryapp.Presenters;
+package com.dictionaryapp.presenters;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Handler;
 import android.util.Log;
 
-import com.dictionaryapp.Helpers.WordsSqlService;
-import com.dictionaryapp.Interfaces.WordsService;
-import com.dictionaryapp.Interfaces.WordsActivityApi;
+import com.dictionaryapp.helpers.WordsSqlService;
+import com.dictionaryapp.interfaces.WordsService;
+import com.dictionaryapp.interfaces.WordsActivityApi;
 
 
 /**

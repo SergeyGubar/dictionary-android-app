@@ -28,9 +28,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.dictionaryapp.Helpers.FirebaseService;
-import com.dictionaryapp.Presenters.MainActivityPresenter;
-import com.dictionaryapp.Interfaces.MainActivityApi;
+import com.dictionaryapp.helpers.FirebaseService;
+import com.dictionaryapp.presenters.MainActivityPresenter;
+import com.dictionaryapp.interfaces.MainActivityApi;
 
 
 public class MainActivity extends AppCompatActivity implements MainActivityApi {
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi {
     private MainActivityPresenter mPresenter;
     private ViewPager mViewPager;
     private Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +80,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi {
                 break;
             case R.id.new_category_menu_item:
                 mPresenter.showNewCategoryAddDialog();
+                break;
+            case R.id.delete_category_action:
+                Intent deleteActivityIntent = new Intent(this, DeleteCategoryActivity.class);
+                startActivity(deleteActivityIntent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -89,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi {
     public void updateAdapter() {
         mViewPager.setAdapter(new WordsFragmentAdapter(getSupportFragmentManager(), this));
     }
+
+
 
 
     @Override
