@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     tools:context="com.dictionaryapp.android.app.RegisterActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary_color"
+        app:elevation="0dp"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ToolbarColoredBackArrow"
+        app:titleTextColor="@android:color/white" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,6 +25,7 @@
         android:layout_centerVertical="true"
         android:orientation="vertical"
         android:paddingBottom="40dp">
+
 
         <EditText
             android:id="@+id/register_email"
@@ -39,9 +51,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:text="@string/register_btn"
             android:layout_marginTop="10dp"
-            android:background="@color/primary_color"/>
+            android:background="@color/primary_color"
+            android:text="@string/register_btn" />
 
     </LinearLayout>
 </RelativeLayout>
