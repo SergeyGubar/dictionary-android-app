@@ -106,7 +106,6 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
         return columnsDeleted > 0;
     }
 
-    // TODO: 9/9/2017 : implement this method
     @Override
     public Cursor getAllCategories() {
         //TODO : NOTE : Maybe it's a bit wrong idea - to handle the whole table only for categories names,

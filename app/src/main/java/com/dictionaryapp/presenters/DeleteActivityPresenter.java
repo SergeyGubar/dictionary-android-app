@@ -43,6 +43,7 @@ public class DeleteActivityPresenter {
             categories.add(categoryName);
             position++;
         }
+
         items.close();
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(mCtx, android.R.layout.simple_spinner_item,
                 categories);
