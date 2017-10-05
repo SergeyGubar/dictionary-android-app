@@ -14,9 +14,10 @@
      limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.app">
+    package="com.dictionaryapp.android.app">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -36,26 +37,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
+        <activity android:name=".MainActivity" />
+
+            <activity
             android:name=".AddActivity"
             android:parentActivityName=".MainActivity" />
-
-        <!-- Parent activities logic for "Up" button -->
-
-        <activity android:name=".MainActivity" />
         <activity
             android:name=".RegisterActivity"
             android:parentActivityName=".AuthActivity" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:parentActivityName=".AuthActivity" />
-        <activity android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".DeleteCategoryActivity"
+            android:parentActivityName=".MainActivity" />
 
         <provider
-            android:name="com.example.Helpers.WordsContentProvider"
-            android:authorities="com.example.android.app"
-            android:exported="false"/>
+            android:name="com.dictionaryapp.helpers.WordsContentProvider"
+            android:authorities="com.dictionaryapp.android.app"
+            android:exported="false" />
+
     </application>
 
 </manifest>

@@ -77,4 +77,6 @@
     <string name="must_enter_category_name">You must enter category name</string>
     <string name="email_sent">Email was sent</string>
     <string name="enter_valid_email" />
+    <string name="category_deleted">Category was successfully deleted!</string>
+    <string name="delete_category">Delete Category</string>
 </resources>
