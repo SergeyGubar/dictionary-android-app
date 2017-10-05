@@ -22,7 +22,7 @@ public class Word {
         return category;
     }
 
-    public Word(String rusWord, String engWord) {
+    public Word(final String rusWord, final String engWord) {
         this.rusWord = rusWord;
         this.engWord = engWord;
     }

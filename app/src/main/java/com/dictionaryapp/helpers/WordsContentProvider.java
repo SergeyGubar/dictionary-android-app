@@ -1,4 +1,4 @@
-package com.dictionaryapp.Helpers;
+package com.dictionaryapp.helpers;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -26,6 +26,7 @@ public class WordsContentProvider extends ContentProvider {
     public static final int WORDS = 100;
     public static final int WORD_WITH_ID = 101;
     public static final int WORDS_WITHIN_CATEGORY = 200;
+    public static final int CATEGORY = 300;
     public static final UriMatcher sUriMatcher = buildUriMatcher();
     private static final String TAG = WordsContentProvider.class.getSimpleName();
     private SQLiteDatabase mDb;
@@ -45,6 +46,8 @@ public class WordsContentProvider extends ContentProvider {
                 WORD_WITH_ID);
         matcher.addURI(WordDbContract.AUTHORTITY, WordDbContract.PATH_WORDS + "/*",
                 WORDS_WITHIN_CATEGORY);
+        matcher.addURI(CategoryDbContract.AUTHORTITY, CategoryDbContract.PATH_CATEGORIES +
+                "/*", CATEGORY);
         return matcher;
     }
 
@@ -55,8 +58,8 @@ public class WordsContentProvider extends ContentProvider {
         mDb = mService.getReadableDatabase();
         int match = sUriMatcher.match(uri);
         Cursor returnCursor;
-        String categoryName = getLastUriArgument(uri.toString());
-        Log.v(TAG, categoryName);
+        String lastUriArgument = getLastUriArgument(uri.toString());
+        Log.v(TAG, lastUriArgument);
         switch (match) {
             case WORDS:
                 Log.v(TAG, "Trying to access the whole word list");
@@ -66,18 +69,28 @@ public class WordsContentProvider extends ContentProvider {
                         null,
                         null,
                         null,
-                        WordDbContract.WordEntry.COLUMN_TIMESTAMP);
+                        WordDbContract.WordEntry.COLUMN_ENG_WORD);
                 return returnCursor;
             case WORDS_WITHIN_CATEGORY:
                 Log.v(TAG, "Trying to access URI with type WORDS_WITHIN_CATEGORY");
                 returnCursor = mDb.query(WordDbContract.WordEntry.TABLE_NAME,
                         null,
-                        WordDbContract.WordEntry.COLUMN_CATEGORY + " = " + "\"" + categoryName + "\"",
+                        WordDbContract.WordEntry.COLUMN_CATEGORY + " = " + "\"" + lastUriArgument + "\"",
                         null,
                         null,
                         null,
-                        WordDbContract.WordEntry.COLUMN_TIMESTAMP);
+                        WordDbContract.WordEntry.COLUMN_ENG_WORD);
                 return returnCursor;
+            case WORD_WITH_ID:
+                Log.v(TAG, "Trying to access URI with type WORD_WITH_ID");
+                return mDb.query(WordDbContract.WordEntry.TABLE_NAME,
+                        null,
+                        WordDbContract.WordEntry._ID + " = " + lastUriArgument,
+                        null,
+                        null,
+                        null,
+                        null
+                );
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri + " :(");
         }
@@ -119,12 +132,22 @@ public class WordsContentProvider extends ContentProvider {
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
         int match = sUriMatcher.match(uri);
         mDb = mService.getWritableDatabase();
-        String id = getLastUriArgument(uri.toString());
+        String lastArgument = getLastUriArgument(uri.toString());
         switch (match) {
             case WORD_WITH_ID:
                 return mDb.delete(WordDbContract.WordEntry.TABLE_NAME,
-                        WordDbContract.WordEntry._ID + " = " + id,
+                        WordDbContract.WordEntry._ID + " = " + lastArgument,
                         null);
+            case WORDS_WITHIN_CATEGORY:
+                return mDb.delete(WordDbContract.WordEntry.TABLE_NAME,
+                        WordDbContract.WordEntry.COLUMN_CATEGORY + " = " + lastArgument,
+                        null
+                );
+            case CATEGORY:
+                return mDb.delete(CategoryDbContract.TABLE_NAME,
+                        CategoryDbContract.COLUMN_CATEGORY_NAME + " = " + "\"" + lastArgument + "\"",
+                        null
+                );
             default:
                 throw new SQLException("Unknown URI");
         }
@@ -146,9 +169,9 @@ public class WordsContentProvider extends ContentProvider {
         }
     }
 
-    //There should be an extension method for the String class, but unfortunately, Java doesn't provide
-    //an opportunity to add extension methods. Should've done it in Kotlin
-    //UPDATED: I've got to know, there is getPathSegments method on the URI. Looks like i've invented a bicycle
+    // There should be an extension method for the String class, but unfortunately, Java doesn't provide
+    // an opportunity to add extension methods. Should've done it in Kotlin
+    // UPDATED: I've got to know, there is getPathSegments method on the URI. Looks like i've invented a bicycle
     private static String getLastUriArgument(String uriString) {
         Pattern p = Pattern.compile("[^/]+$");
         Matcher m = p.matcher(uriString);

@@ -1,11 +1,11 @@
-package com.dictionaryapp.Presenters;
+package com.dictionaryapp.presenters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
-import com.dictionaryapp.Interfaces.ForgotPasswordApi;
-import com.dictionaryapp.Interfaces.ResetPassword;
+import com.dictionaryapp.interfaces.ForgotPasswordApi;
+import com.dictionaryapp.interfaces.ResetPassword;
 import com.dictionaryapp.android.app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

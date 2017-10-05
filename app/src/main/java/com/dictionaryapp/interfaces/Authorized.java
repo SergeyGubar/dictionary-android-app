@@ -1,4 +1,4 @@
-package com.dictionaryapp.Interfaces;
+package com.dictionaryapp.interfaces;
 
 /**
  * Created by Sergey on 7/16/2017.

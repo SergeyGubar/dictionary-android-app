@@ -1,4 +1,4 @@
-package com.dictionaryapp.Helpers;
+package com.dictionaryapp.helpers;
 
 import android.net.Uri;
 import android.provider.BaseColumns;
@@ -9,9 +9,8 @@ import android.provider.BaseColumns;
 
 public class WordDbContract {
 
-    public static final String AUTHORTITY = "com.example.android.app";
+    public static final String AUTHORTITY = "com.dictionaryapp.android.app";
     public static final String PATH_WORDS = "words";
-    public static final String PATH_CATEGORIES = "categories";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORTITY);
 
     private WordDbContract() {

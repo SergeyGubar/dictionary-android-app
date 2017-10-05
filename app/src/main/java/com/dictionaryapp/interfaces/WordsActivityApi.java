@@ -1,6 +1,8 @@
-package com.dictionaryapp.Interfaces;
+package com.dictionaryapp.interfaces;
 
-import com.dictionaryapp.Presenters.WordsActivityPresenter;
+import android.support.design.widget.CoordinatorLayout;
+
+import com.dictionaryapp.presenters.WordsActivityPresenter;
 import com.wang.avi.AVLoadingIndicatorView;
 
 /**
@@ -15,4 +17,6 @@ public interface WordsActivityApi {
     AVLoadingIndicatorView getLoadingIndicator();
 
     WordsActivityPresenter getPresenter();
+
+    CoordinatorLayout getContainer();
 }

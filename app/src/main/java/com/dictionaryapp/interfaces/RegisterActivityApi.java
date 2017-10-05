@@ -1,4 +1,4 @@
-package com.dictionaryapp.Interfaces;
+package com.dictionaryapp.interfaces;
 
 import android.app.Activity;
 

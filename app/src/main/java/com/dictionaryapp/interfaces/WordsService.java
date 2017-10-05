@@ -1,4 +1,4 @@
-package com.dictionaryapp.Interfaces;
+package com.dictionaryapp.interfaces;
 
 import android.database.Cursor;
 
@@ -17,5 +17,7 @@ public interface WordsService {
     boolean removeWord(long id);
 
     void updateWord(long id, String newEng, String newRus);
+
+    Word getWordWithId(long id);
 
 }

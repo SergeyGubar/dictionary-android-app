@@ -1,4 +1,4 @@
-package com.dictionaryapp.Presenters;
+package com.dictionaryapp.presenters;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,8 +10,8 @@ import com.dictionaryapp.android.app.ForgotPasswordActivity;
 import com.dictionaryapp.android.app.MainActivity;
 import com.dictionaryapp.android.app.R;
 import com.dictionaryapp.android.app.RegisterActivity;
-import com.dictionaryapp.Interfaces.AuthActivityApi;
-import com.dictionaryapp.Interfaces.Authorized;
+import com.dictionaryapp.interfaces.AuthActivityApi;
+import com.dictionaryapp.interfaces.Authorized;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

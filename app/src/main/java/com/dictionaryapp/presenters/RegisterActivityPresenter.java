@@ -1,4 +1,4 @@
-package com.dictionaryapp.Presenters;
+package com.dictionaryapp.presenters;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,8 +8,8 @@ import android.widget.Toast;
 
 import com.dictionaryapp.android.app.AuthActivity;
 import com.dictionaryapp.android.app.R;
-import com.dictionaryapp.Interfaces.RegisterActivityApi;
-import com.dictionaryapp.Interfaces.Registrable;
+import com.dictionaryapp.interfaces.RegisterActivityApi;
+import com.dictionaryapp.interfaces.Registrable;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
