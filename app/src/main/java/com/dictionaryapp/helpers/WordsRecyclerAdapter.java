@@ -2,6 +2,8 @@ package com.dictionaryapp.helpers;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dictionaryapp.android.app.Word;
 import com.dictionaryapp.interfaces.WordsService;
 import com.dictionaryapp.presenters.WordsActivityPresenter;
 import com.dictionaryapp.android.app.R;
@@ -25,20 +28,6 @@ public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdap
     private Context mCtx;
     private WordsService mService;
     private WordsActivityPresenter mPresenter;
-
-    public WordsRecyclerAdapter() {
-
-    }
-
-    public WordsRecyclerAdapter(Cursor mCursor) {
-        this.mCursor = mCursor;
-    }
-
-    public WordsRecyclerAdapter(Cursor mCursor, Context ctx) {
-        this.mCursor = mCursor;
-        this.mCtx = ctx;
-        this.mService = new WordsSqlService(ctx);
-    }
 
     public WordsRecyclerAdapter(Cursor cursor, Context ctx, WordsActivityPresenter presenter) {
         this.mCursor = cursor;
@@ -58,9 +47,11 @@ public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdap
 
     @Override
     public void onBindViewHolder(WordsViewHolder holder, int position) {
+
         if (!mCursor.moveToPosition(position)) {
             return;
         }
+
         final String engWord = mCursor.getString(mCursor.getColumnIndex(WordDbContract.WordEntry.COLUMN_ENG_WORD));
         final String rusWord = mCursor.getString(mCursor.getColumnIndex(WordDbContract.WordEntry.COLUMN_RUS_WORD));
         final long id = mCursor.getLong(mCursor.getColumnIndex(WordDbContract.WordEntry._ID));
@@ -77,10 +68,24 @@ public class WordsRecyclerAdapter extends RecyclerView.Adapter<WordsRecyclerAdap
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        final Word deletedWord = mService.getWordWithId(id);
                         mService.removeWord(id);
                         Toast.makeText(mCtx, R.string.word_deleted, Toast.LENGTH_SHORT).show();
                         swapCursor(mPresenter.getWords());
                         dialog.hide();
+                        final CoordinatorLayout container = mPresenter.getContainer();
+
+                        Snackbar snackbar = Snackbar.make(container, "Word was Deleted!", Snackbar.LENGTH_SHORT)
+                                .setAction("UNDO", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        mService.addWord(deletedWord);
+                                        Snackbar.make(container, "Word was restored!",
+                                                Snackbar.LENGTH_SHORT).show();
+                                        swapCursor(mPresenter.getWords());
+                                    }
+                                });
+                        snackbar.show();
                     }
                 });
                 editButton.setOnClickListener(new View.OnClickListener() {

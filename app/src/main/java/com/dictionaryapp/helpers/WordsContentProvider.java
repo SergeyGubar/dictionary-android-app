@@ -58,8 +58,8 @@ public class WordsContentProvider extends ContentProvider {
         mDb = mService.getReadableDatabase();
         int match = sUriMatcher.match(uri);
         Cursor returnCursor;
-        String categoryName = getLastUriArgument(uri.toString());
-        Log.v(TAG, categoryName);
+        String lastUriArgument = getLastUriArgument(uri.toString());
+        Log.v(TAG, lastUriArgument);
         switch (match) {
             case WORDS:
                 Log.v(TAG, "Trying to access the whole word list");
@@ -69,18 +69,28 @@ public class WordsContentProvider extends ContentProvider {
                         null,
                         null,
                         null,
-                        WordDbContract.WordEntry.COLUMN_TIMESTAMP);
+                        WordDbContract.WordEntry.COLUMN_ENG_WORD);
                 return returnCursor;
             case WORDS_WITHIN_CATEGORY:
                 Log.v(TAG, "Trying to access URI with type WORDS_WITHIN_CATEGORY");
                 returnCursor = mDb.query(WordDbContract.WordEntry.TABLE_NAME,
                         null,
-                        WordDbContract.WordEntry.COLUMN_CATEGORY + " = " + "\"" + categoryName + "\"",
+                        WordDbContract.WordEntry.COLUMN_CATEGORY + " = " + "\"" + lastUriArgument + "\"",
                         null,
                         null,
                         null,
-                        WordDbContract.WordEntry.COLUMN_TIMESTAMP);
+                        WordDbContract.WordEntry.COLUMN_ENG_WORD);
                 return returnCursor;
+            case WORD_WITH_ID:
+                Log.v(TAG, "Trying to access URI with type WORD_WITH_ID");
+                return mDb.query(WordDbContract.WordEntry.TABLE_NAME,
+                        null,
+                        WordDbContract.WordEntry._ID + " = " + lastUriArgument,
+                        null,
+                        null,
+                        null,
+                        null
+                );
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri + " :(");
         }
@@ -135,7 +145,7 @@ public class WordsContentProvider extends ContentProvider {
                 );
             case CATEGORY:
                 return mDb.delete(CategoryDbContract.TABLE_NAME,
-                        CategoryDbContract.COLUMN_CATEGORY_NAME + " = " + "\""  + lastArgument + "\"",
+                        CategoryDbContract.COLUMN_CATEGORY_NAME + " = " + "\"" + lastArgument + "\"",
                         null
                 );
             default:
@@ -159,9 +169,9 @@ public class WordsContentProvider extends ContentProvider {
         }
     }
 
-    //There should be an extension method for the String class, but unfortunately, Java doesn't provide
-    //an opportunity to add extension methods. Should've done it in Kotlin
-    //UPDATED: I've got to know, there is getPathSegments method on the URI. Looks like i've invented a bicycle
+    // There should be an extension method for the String class, but unfortunately, Java doesn't provide
+    // an opportunity to add extension methods. Should've done it in Kotlin
+    // UPDATED: I've got to know, there is getPathSegments method on the URI. Looks like i've invented a bicycle
     private static String getLastUriArgument(String uriString) {
         Pattern p = Pattern.compile("[^/]+$");
         Matcher m = p.matcher(uriString);

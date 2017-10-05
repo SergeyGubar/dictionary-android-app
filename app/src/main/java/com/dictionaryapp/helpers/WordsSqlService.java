@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
@@ -83,7 +84,7 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
     public Cursor getWordsWithinCategory(String category) {
         Uri uri = WordDbContract.WordEntry.CONTENT_URI.buildUpon().appendPath(category).build();
         Log.v(TAG, "QUERY " + uri.toString());
-        return mContentResolver.query(uri, null, null, null, null);
+        return mContentResolver.query(uri, null, null, null, WordDbContract.WordEntry.COLUMN_ENG_WORD);
     }
 
     @Override
@@ -99,10 +100,32 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
     }
 
     @Override
+    public Word getWordWithId(long id) {
+        Uri uri = WordDbContract.WordEntry.CONTENT_URI.buildUpon().appendPath(String.valueOf(id))
+                .build();
+        Cursor result = mContentResolver.query(uri,
+                null,
+                null,
+                null,
+                null);
+        result.moveToFirst();
+        Log.e(TAG, "Cursor" + result.getCount());
+        String engWord = result.getString(result.getColumnIndex(WordDbContract.WordEntry.COLUMN_ENG_WORD));
+        String rusWord = result.getString(result.getColumnIndex(WordDbContract.WordEntry.COLUMN_RUS_WORD));
+        String category = result.getString(result.getColumnIndex(WordDbContract.WordEntry.COLUMN_CATEGORY));
+        result.close();
+        Word word = new Word(rusWord, engWord, category);
+
+        return word;
+    }
+
+    @Override
     public boolean removeWord(long id) {
         Uri uri = WordDbContract.WordEntry.CONTENT_URI.buildUpon().appendPath(String.valueOf(id))
                 .build();
-        int columnsDeleted = mContentResolver.delete(uri, null, null);
+        int columnsDeleted = mContentResolver.delete(uri,
+                null,
+                null);
         return columnsDeleted > 0;
     }
 
@@ -122,7 +145,6 @@ public class WordsSqlService extends SQLiteOpenHelper implements WordsService, C
                 null);
     }
 
-    // TODO: 9/9/2017 : implement this method
     @Override
     public String getCategoryName(int position, Cursor cursor) {
         if (cursor.moveToPosition(position)) {

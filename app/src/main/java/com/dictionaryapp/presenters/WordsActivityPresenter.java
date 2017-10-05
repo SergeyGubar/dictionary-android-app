@@ -3,6 +3,7 @@ package com.dictionaryapp.presenters;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Handler;
+import android.support.design.widget.CoordinatorLayout;
 import android.util.Log;
 
 import com.dictionaryapp.helpers.WordsSqlService;
@@ -15,6 +16,7 @@ import com.dictionaryapp.interfaces.WordsActivityApi;
  */
 
 public class WordsActivityPresenter {
+
     private final Context mCtx;
     private final WordsActivityApi mApi;
     private final WordsService mService;
@@ -44,6 +46,10 @@ public class WordsActivityPresenter {
         Cursor cursor = mService.getWordsWithinCategory(category);
         mApi.getLoadingIndicator().hide();
         return cursor;
+    }
+
+    public CoordinatorLayout getContainer() {
+        return mApi.getContainer();
     }
 
 }

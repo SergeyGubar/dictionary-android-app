@@ -3,7 +3,9 @@ package com.dictionaryapp.presenters;
 import android.content.Context;
 import android.database.Cursor;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import com.dictionaryapp.android.app.R;
 import com.dictionaryapp.helpers.CategoryDbContract;
 import com.dictionaryapp.helpers.WordsSqlService;
 import com.dictionaryapp.interfaces.CategoriesService;
@@ -17,7 +19,7 @@ import java.util.List;
  */
 
 public class DeleteActivityPresenter {
-
+    //TODO : Delete all words within category
     private Context mCtx;
     private DeleteCategoryApi mApi;
     private CategoriesService mService;
@@ -31,11 +33,15 @@ public class DeleteActivityPresenter {
     public void removeCategory() {
         String categoryName = mApi.getSelectedCategoryName();
         mService.removeCategory(categoryName);
+        String toastMessage = mCtx.getString(R.string.category_deleted);
+        Toast.makeText(mCtx, toastMessage, Toast.LENGTH_SHORT).show();
+        initializeSpinnerDataSource();
     }
 
     public void initializeSpinnerDataSource() {
         Cursor items = mService.getAllCategories();
         int position = 0;
+
         List<CharSequence> categories = new ArrayList<>();
         while (items.moveToPosition(position)) {
             String categoryName = items.getString(items.getColumnIndex

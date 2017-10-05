@@ -18,6 +18,7 @@ package com.dictionaryapp.android.app;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -28,17 +29,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.dictionaryapp.fragments.WordsFragment;
 import com.dictionaryapp.helpers.FirebaseService;
 import com.dictionaryapp.presenters.MainActivityPresenter;
 import com.dictionaryapp.interfaces.MainActivityApi;
 
 
-public class MainActivity extends AppCompatActivity implements MainActivityApi {
+public class MainActivity extends AppCompatActivity implements MainActivityApi, WordsFragment.WordFragmentListener {
 
-    private final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
     private MainActivityPresenter mPresenter;
     private ViewPager mViewPager;
     private Toolbar mToolbar;
+    private FloatingActionButton mBtn;
+    private CoordinatorLayout mContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +57,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi {
         mToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(mToolbar);
 
-        FloatingActionButton btn = (FloatingActionButton) findViewById(R.id.float_btn);
-        btn.setOnClickListener(new OnClickListener() {
+        mBtn = (FloatingActionButton) findViewById(R.id.float_btn);
+        mBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 mPresenter.startAddActivity();
@@ -96,10 +100,30 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi {
     }
 
 
-
-
     @Override
     public Context getContext() {
         return this;
     }
+
+    @Override
+    public void hideFab() {
+        mBtn.hide();
+    }
+
+    @Override
+    public void showFab() {
+        mBtn.show();
+    }
+
+    @Override
+    public boolean isFabShown() {
+        return mBtn.isShown();
+    }
+
+    @Override
+    public CoordinatorLayout getContainer() {
+        return (CoordinatorLayout) findViewById(R.id.main_coordinator_layout);
+    }
+
+
 }

@@ -18,4 +18,6 @@ public interface WordsService {
 
     void updateWord(long id, String newEng, String newRus);
 
+    Word getWordWithId(long id);
+
 }

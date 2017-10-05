@@ -66,4 +66,6 @@ public class DeleteCategoryActivity extends AppCompatActivity implements DeleteC
     public void setSpinnerAdapter(ArrayAdapter<CharSequence> adapter) {
         mCategoriesSpinner.setAdapter(adapter);
     }
+
+
 }
