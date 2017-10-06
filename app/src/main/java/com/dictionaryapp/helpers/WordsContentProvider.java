@@ -133,21 +133,31 @@ public class WordsContentProvider extends ContentProvider {
         int match = sUriMatcher.match(uri);
         mDb = mService.getWritableDatabase();
         String lastArgument = getLastUriArgument(uri.toString());
+        int tuplesDeleted;
         switch (match) {
             case WORD_WITH_ID:
-                return mDb.delete(WordDbContract.WordEntry.TABLE_NAME,
+                tuplesDeleted = mDb.delete(WordDbContract.WordEntry.TABLE_NAME,
                         WordDbContract.WordEntry._ID + " = " + lastArgument,
                         null);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return tuplesDeleted;
             case WORDS_WITHIN_CATEGORY:
-                return mDb.delete(WordDbContract.WordEntry.TABLE_NAME,
+                tuplesDeleted = mDb.delete(WordDbContract.WordEntry.TABLE_NAME,
                         WordDbContract.WordEntry.COLUMN_CATEGORY + " = " + lastArgument,
                         null
                 );
+                getContext().getContentResolver().notifyChange(uri, null);
+                return tuplesDeleted;
             case CATEGORY:
-                return mDb.delete(CategoryDbContract.TABLE_NAME,
+                tuplesDeleted = mDb.delete(CategoryDbContract.TABLE_NAME,
                         CategoryDbContract.COLUMN_CATEGORY_NAME + " = " + "\"" + lastArgument + "\"",
                         null
                 );
+                int wordsDeleted = mDb.delete(WordDbContract.WordEntry.TABLE_NAME,
+                        WordDbContract.WordEntry.COLUMN_CATEGORY + " = " + "\"" + lastArgument.toLowerCase() + "\"",
+                        null);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return tuplesDeleted;
             default:
                 throw new SQLException("Unknown URI");
         }
@@ -159,11 +169,13 @@ public class WordsContentProvider extends ContentProvider {
         String id = getLastUriArgument(uri.toString());
         switch (match) {
             case WORD_WITH_ID:
-                return mDb.update(WordDbContract.WordEntry.TABLE_NAME,
+                int tuplesUpdated = mDb.update(WordDbContract.WordEntry.TABLE_NAME,
                         values,
                         WordDbContract.WordEntry._ID + " = " + id,
                         null
                 );
+                getContext().getContentResolver().notifyChange(uri, null);
+                return tuplesUpdated;
             default:
                 throw new SQLException("Unknown URI" + uri.toString());
         }

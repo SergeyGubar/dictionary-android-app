@@ -4,27 +4,18 @@
 
     <item
         android:id="@+id/new_category_menu_item"
-        android:title="New Category"
         android:orderInCategory="1"
-        app:showAsAction="never"
-        />
-
-    <item android:id="@+id/settings_menu_item"
-        android:title="@string/settings"
-        app:showAsAction="never"
-        android:orderInCategory="3"
-        />
+        android:title="@string/new_category"
+        app:showAsAction="never" />
+   <item
+        android:id="@+id/delete_category_action"
+        android:orderInCategory="2"
+        android:title="@string/delete_category"
+        app:showAsAction="never" />
     <item
         android:id="@+id/log_out_action"
+        android:orderInCategory="3"
         android:title="@string/log_out"
-        app:showAsAction="never"
-        android:orderInCategory="4"/>
-    <item
-        android:id="@+id/delete_category_action"
-        android:title="@string/delete_category"
-        app:showAsAction="never"
-        android:orderInCategory="2"/>
-
-
+        app:showAsAction="never" />
 
 </menu>

@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.dictionaryapp.helpers.WordsSqlService;
 import com.dictionaryapp.interfaces.CategoriesService;
@@ -85,10 +86,15 @@ public class AddActivity extends AppCompatActivity implements AddActivityApi {
     @Override
     public void setSpinnerAdapter() {
         List<String> categoriesNames = mService.getCategoriesNames();
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 categoriesNames);
 
         mSpinner.setAdapter(adapter);
+        if(categoriesNames.isEmpty()) {
+            mSpinner.setEnabled(false);
+            mAddButton.setEnabled(false);
+            Toast.makeText(this, "Looks like you haven't add any categories, maybe you should go" +
+                    " to menu and add it first?", Toast.LENGTH_LONG).show();
+        }
     }
 }

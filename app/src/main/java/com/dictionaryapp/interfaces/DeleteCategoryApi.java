@@ -9,4 +9,5 @@ import android.widget.ArrayAdapter;
 public interface DeleteCategoryApi {
     String getSelectedCategoryName();
     void setSpinnerAdapter(ArrayAdapter<CharSequence> adapter);
+    void lockDeleteFunction();
 }

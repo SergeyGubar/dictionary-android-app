@@ -48,9 +48,6 @@
         <activity
             android:name=".ForgotPasswordActivity"
             android:parentActivityName=".AuthActivity" />
-        <activity
-            android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity" />
 
         <activity
             android:name=".DeleteCategoryActivity"
