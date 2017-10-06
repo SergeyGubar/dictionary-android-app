@@ -24,6 +24,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,8 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi, 
     private MainActivityPresenter mPresenter;
     private ViewPager mViewPager;
     private Toolbar mToolbar;
-    private FloatingActionButton mBtn;
-    private CoordinatorLayout mContainer;
+    private FloatingActionButton mFloatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi, 
         mToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(mToolbar);
 
-        mBtn = (FloatingActionButton) findViewById(R.id.float_btn);
-        mBtn.setOnClickListener(new OnClickListener() {
+        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.float_btn);
+        mFloatingActionButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 mPresenter.startAddActivity();
@@ -75,10 +75,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi, 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.settings_menu_item:
-                Intent settingsActivityIntent = new Intent(this, SettingsActivity.class);
-                startActivity(settingsActivityIntent);
-                break;
             case R.id.log_out_action:
                 FirebaseService.logOut(this);
                 break;
@@ -91,6 +87,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi, 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume() called");
+        super.onResume();
     }
 
 
@@ -107,17 +109,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityApi, 
 
     @Override
     public void hideFab() {
-        mBtn.hide();
+        mFloatingActionButton.hide();
     }
 
     @Override
     public void showFab() {
-        mBtn.show();
+        mFloatingActionButton.show();
     }
 
     @Override
     public boolean isFabShown() {
-        return mBtn.isShown();
+        return mFloatingActionButton.isShown();
     }
 
     @Override

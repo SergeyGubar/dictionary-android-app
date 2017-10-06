@@ -45,8 +45,7 @@ public class MainActivityPresenter {
             @Override
             public void onClick(View v) {
 
-
-                String categoryName = newCategoryNameEditText.getText().toString();
+                String categoryName = newCategoryNameEditText.getText().toString().toLowerCase();
                 if(!categoryName.isEmpty()) {
                     mService = new WordsSqlService(mCtx);
                     mService.addCategory(categoryName);

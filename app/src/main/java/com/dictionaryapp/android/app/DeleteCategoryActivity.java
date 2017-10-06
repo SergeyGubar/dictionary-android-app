@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.dictionaryapp.interfaces.DeleteCategoryApi;
 import com.dictionaryapp.presenters.DeleteActivityPresenter;
@@ -21,8 +22,6 @@ public class DeleteCategoryActivity extends AppCompatActivity implements DeleteC
     private Spinner mCategoriesSpinner;
 
 
-    //TODO : Set spinner data source
-    //TODO : Fix colors
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +64,14 @@ public class DeleteCategoryActivity extends AppCompatActivity implements DeleteC
     @Override
     public void setSpinnerAdapter(ArrayAdapter<CharSequence> adapter) {
         mCategoriesSpinner.setAdapter(adapter);
+    }
+
+    @Override
+    public void lockDeleteFunction() {
+        mCategoriesSpinner.setEnabled(false);
+        mDeleteButton.setEnabled(false);
+        Toast.makeText(this, "There are no categories to delete. Maybe you should add it?", Toast.LENGTH_SHORT)
+                .show();
     }
 
 

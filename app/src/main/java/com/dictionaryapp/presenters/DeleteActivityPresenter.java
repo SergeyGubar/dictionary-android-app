@@ -36,6 +36,7 @@ public class DeleteActivityPresenter {
         String toastMessage = mCtx.getString(R.string.category_deleted);
         Toast.makeText(mCtx, toastMessage, Toast.LENGTH_SHORT).show();
         initializeSpinnerDataSource();
+
     }
 
     public void initializeSpinnerDataSource() {
@@ -55,5 +56,9 @@ public class DeleteActivityPresenter {
                 categories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mApi.setSpinnerAdapter(adapter);
+
+        if (categories.isEmpty()) {
+            mApi.lockDeleteFunction();
+        }
     }
 }
